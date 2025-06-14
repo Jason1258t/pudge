@@ -12,11 +12,6 @@ class CustomBackground extends StatefulWidget {
 
 class _CustomBackgroundState extends State<CustomBackground> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.bcd,

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:pudge/shared/scaffold/custom_scaffold.dart';
-import 'package:pudge/shared/theme/colors.dart';
 import 'package:pudge/shared/ui/background/custom_background.dart';
 import 'package:pudge/shared/ui/buttons/elevated_button.dart';
 import 'package:pudge/shared/ui/buttons/social_button.dart';
 import 'package:pudge/shared/ui/containers/glass_container.dart';
 import 'package:pudge/shared/ui/inputs/outline_text_field.dart';
 import 'package:pudge/shared/ui/inputs/password_field.dart';
-import 'package:pudge/shared/utils/assets.dart';
+import 'package:pudge/shared/utils/utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
