@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pudge/shared/theme/colors.dart';
 
 class CustomBackground extends StatefulWidget {
-  const CustomBackground({super.key, required this.scaffold});
+  const CustomBackground({super.key, required this.child});
 
-  final Scaffold scaffold;
+  final Widget child;
 
   @override
   State<CustomBackground> createState() => _CustomBackgroundState();
@@ -20,7 +20,7 @@ class _CustomBackgroundState extends State<CustomBackground> {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.bcd,
-      child: Stack(children: [...buildBcdItems(context), widget.scaffold]),
+      child: Stack(children: [...buildBcdItems(context), widget.child]),
     );
   }
 
