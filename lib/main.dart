@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:pudge/pages/auth/auth.dart';
+import 'package:pudge/shared/theme/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        primaryColor: AppColors.primary,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        textTheme: GoogleFonts.nunitoTextTheme()
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: RegisterScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
