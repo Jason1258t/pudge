@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pudge/pages/auth/auth.dart';
+import 'package:pudge/pages/auth/login/login_screen.dart';
 import 'package:pudge/shared/theme/colors.dart';
 
 void main() {
@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: AppColors.primary,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        textTheme: GoogleFonts.nunitoTextTheme()
+        textTheme: GoogleFonts.nunitoTextTheme(),
       ),
-      home: RegisterScreen(),
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

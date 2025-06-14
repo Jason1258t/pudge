@@ -9,14 +9,9 @@ import 'package:pudge/shared/ui/inputs/outline_text_field.dart';
 import 'package:pudge/shared/ui/inputs/password_field.dart';
 import 'package:pudge/shared/utils/assets.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomBackground(
@@ -29,7 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Welcome to\nPUDGE',
+                  'Welcome back to\nPUDGE',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: AppColors.onBcg,
@@ -45,7 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       Text(
                         textAlign: TextAlign.center,
-                        'We\'ve been waiting for you, by pressing register you accepts our privacy policy',
+                        'Welcome back, we missed you bro. Let\'s login to start',
                         style: TextStyle(
                           fontSize: 14,
                           color: AppColors.onBcg.withAlpha(100),
@@ -63,10 +58,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       Gap(16),
                       PasswordField(),
-                      Gap(16),
-                      PasswordField(hint: 'Repeat your password'),
-                      Gap(60),
-                      CustomElevatedButton(callback: () {}, text: 'Register'),
+                      Gap(48),
+                      CustomElevatedButton(callback: () {}, text: 'Login'),
                       Gap(24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
