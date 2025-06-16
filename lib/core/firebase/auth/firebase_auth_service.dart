@@ -2,6 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pudge/core/exceptions/auth_exceptions.dart';
 import 'package:pudge/core/firebase/firebase_exception_mapper.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'firebase_auth_service.g.dart';
+
+@Riverpod()
+FirebaseAuthService firebaseAuthService(_) {
+  return FirebaseAuthService();
+}
 
 class FirebaseAuthService {
   static final _auth = FirebaseAuth.instance;
@@ -13,6 +21,7 @@ class FirebaseAuthService {
   }
 
   Stream<User?> get userChanges => _currentUserSubject;
+  User? get currentUser => _auth.currentUser;
 
   Future<UserCredential> registerWithEmailAndPassword(
     String email,

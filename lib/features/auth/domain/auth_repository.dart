@@ -3,11 +3,13 @@ import 'package:pudge/features/auth/domain/app_authorization_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract interface class AuthRepository {
-  Future<User> registerWithEmail(String email, String password);
+  Future registerWithEmail(String email, String password);
 
-  Future<User> loginWithEmail(String email, String password);
+  Future loginWithEmail(String email, String password);
 
-  Future<User> signInWithGoogle();
+  Future signInWithGoogle();
+
+  User? get currentUser;
 
   BehaviorSubject<AppAuthorizationState> get appAuthStateChanges;
 }
