@@ -6,5 +6,5 @@ abstract interface class UserRepository {
 
   Future<User> editUser(User newData);
 
-  Future<User> createUser(UserCreateDTO data);
+  Future<User> createUser(UserCreateDTO data, {String? id});
 }

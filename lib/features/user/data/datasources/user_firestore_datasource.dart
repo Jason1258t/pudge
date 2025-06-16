@@ -19,10 +19,15 @@ class UserFirestoreDatasource {
     return null;
   }
 
-  Future<String> createUser(UserCreateDTO user) async {
-    final doc = await _userCollection.add(user.toJson());
-    await doc.update({"id": doc.id});
-    return doc.id;
+  Future<String> createUser(UserCreateDTO user, {String? id}) async {
+    if (id != null) {
+      await _userCollection.doc(id).set(user.toJson());
+      return id;
+    } else {
+      final doc = await _userCollection.add(user.toJson());
+      await doc.update({"id": doc.id});
+      return doc.id;
+    }
   }
 
   Future<void> saveUserData(User user) async {

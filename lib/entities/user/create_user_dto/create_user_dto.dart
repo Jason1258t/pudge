@@ -14,6 +14,4 @@ abstract class UserCreateDTO with _$UserCreateDTO {
 
   factory UserCreateDTO.fromJson(Map<String, dynamic> json) =>
       _$UserCreateDTOFromJson(json);
-
-  // Map<String, dynamic> toJson() => _$UserCreateDTOToJson();
 }

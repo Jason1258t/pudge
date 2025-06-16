@@ -31,7 +31,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<User> createUser(UserCreateDTO data) async {
+  Future<User> createUser(UserCreateDTO data, {String? id}) async {
     final id = await _firestoreDatasource.createUser(data);
     final user = await _firestoreDatasource.getUserData(id);
     return user!;
