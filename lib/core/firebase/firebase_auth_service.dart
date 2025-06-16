@@ -1,97 +1,88 @@
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pudge/core/exceptions/auth_exceptions.dart';
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/core/firebase/firebase_exception_mapper.dart';
 
 class FirebaseAuthService {
-  static final _auth = firebase_auth.FirebaseAuth.instance;
+  static final _auth = FirebaseAuth.instance;
+
+  late final Stream<User?> _currentUserSubject;
 
   FirebaseAuthService() {
-    _auth.authStateChanges().listen((firebase_auth.User? user) {
-      log('current user: $user');
-    });
+    _currentUserSubject = _auth.authStateChanges();
   }
 
-  Future<User?> registerWithEmailAndPassword(
+  Stream<User?> get userChanges => _currentUserSubject;
+
+  Future<UserCredential> registerWithEmailAndPassword(
     String email,
     String password,
   ) async {
-    try {
+    return _handleAuthErrors(() async {
       final res = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       if (res.user != null) {
-        final User user = User(
-          id: res.user!.uid,
-          username: res.user!.displayName ?? res.user!.email!,
-          avatarUrl: res.user!.photoURL,
-          bio: null,
-        );
-
-        return user;
+        return res;
+      } else {
+        throw UnknownAuthException();
       }
-      throw UnknownAuthException();
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      log(e.code);
-      log(e.message ?? 'Unknown Firebase Auth error');
-      throw _mapFirebaseAuthException(e);
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
+    });
   }
 
-  Future<User?> signInWithEmailAndPassword(
+  Future<UserCredential> signInWithEmailAndPassword(
     String email,
     String password,
   ) async {
-    try {
+    return _handleAuthErrors(() async {
       final res = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       if (res.user != null) {
-        final User user = User(
-          id: res.user!.uid,
-          username: res.user!.displayName,
-          avatarUrl: res.user!.photoURL,
-          bio: null,
-        );
-        return user;
+        return res;
+      } else {
+        throw UnknownAuthException();
       }
-      throw UnknownAuthException();
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      log(e.code);
-      log(e.message ?? 'Unknown Firebase Auth error');
-      throw _mapFirebaseAuthException(e);
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
+    });
   }
 
-  Exception _mapFirebaseAuthException(firebase_auth.FirebaseAuthException e) {
-    switch (e.code) {
-      case 'email-already-in-use':
-        return EmailAlreadyInUseException();
-      case 'invalid-email':
-        return InvalidEmailException();
-      case 'weak-password':
-        return WeakPasswordException();
-      case 'user-not-found':
-        return UserNotFoundException();
-      case 'wrong-password':
-        return WrongPasswordException();
-      default:
-        return UnknownAuthException(message: e.message);
-    }
+  Future<UserCredential> signInWithGoogle() async {
+    return _handleAuthErrors(() async {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final res = await _auth.signInWithCredential(credential);
+      if (res.user != null) {
+        return res;
+      } else {
+        throw UnknownAuthException();
+      }
+    });
   }
 
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  Future<T> _handleAuthErrors<T>(Future<T> Function() action) async {
+    try {
+      final result = await action();
+      return result;
+    } on FirebaseAuthException catch (e) {
+      throw FirebaseExceptionMapper.mapAuthException(e);
+    } catch (e) {
+      throw UnknownAuthException(message: e.toString());
+    }
   }
 }
