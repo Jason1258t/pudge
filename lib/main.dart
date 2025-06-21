@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/pages/splash/splash_screen.dart';
-import 'package:pudge/shared/theme/colors.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

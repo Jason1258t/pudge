@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pudge/shared/theme/filters.dart';
+import 'package:pudge/core/theme/theme.dart';
 
 class SocialButton extends StatelessWidget {
   const SocialButton({super.key, required this.asset, required this.callback});

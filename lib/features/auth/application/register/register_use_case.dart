@@ -26,9 +26,10 @@ class RegisterUseCase {
   Future<User> execute(String email, String password) async {
     await _authRepository.registerWithEmail(email, password);
     final User? currentUser = _authRepository.currentUser;
-    if (currentUser == null) {
-      throw UnknownAuthException(message: "User is null after login");
-    }
+
+
+    if (currentUser == null) throw UnknownAuthException.nullUser();
+
     await _userRepository.createUser(
       UserCreateDTO(
         username: currentUser.username,
@@ -37,6 +38,7 @@ class RegisterUseCase {
       id: currentUser.id,
     );
 
-    return await _userRepository.getUser(currentUser.id);
+    await _userRepository.setUserId(currentUser.id);
+    return _userRepository.currentUser!;
   }
 }

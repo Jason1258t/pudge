@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudge/shared/theme/colors.dart';
+import 'package:pudge/core/theme/theme.dart';
 
 class CustomBackground extends StatefulWidget {
   const CustomBackground({super.key, required this.child});

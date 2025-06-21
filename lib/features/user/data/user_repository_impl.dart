@@ -14,6 +14,7 @@ UserRepository userRepository(ref) {
 
 class UserRepositoryImpl implements UserRepository {
   final UserFirestoreDatasource _firestoreDatasource;
+  User? _currentUser;
 
   UserRepositoryImpl(this._firestoreDatasource);
 
@@ -35,5 +36,13 @@ class UserRepositoryImpl implements UserRepository {
     final id = await _firestoreDatasource.createUser(data);
     final user = await _firestoreDatasource.getUserData(id);
     return user!;
+  }
+
+  @override
+  User? get currentUser => _currentUser;
+
+  @override
+  Future<void> setUserId(String uid) async {
+    _currentUser = await getUser(uid);
   }
 }

@@ -25,9 +25,10 @@ class LoginUseCase {
   Future<User> execute(String email, String password) async {
     await _authRepository.loginWithEmail(email, password);
     final User? currentUser = _authRepository.currentUser;
-    if (currentUser == null) {
-      throw UnknownAuthException(message: "User is null after login");
-    }
-    return await _userRepository.getUser(currentUser.id);
+
+    if (currentUser == null) throw UnknownAuthException.nullUser();
+
+    await _userRepository.setUserId(currentUser.id);
+    return _userRepository.currentUser!;
   }
 }

@@ -3,6 +3,8 @@ class AppAuthException implements Exception {}
 class UnknownAuthException implements AppAuthException {
   UnknownAuthException({this.message});
 
+  UnknownAuthException.nullUser() : message = "User is null after login";
+
   final String? message;
 
   @override

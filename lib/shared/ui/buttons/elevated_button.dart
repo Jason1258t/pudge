@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudge/shared/theme/gradients.dart';
+import 'package:pudge/core/theme/theme.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({

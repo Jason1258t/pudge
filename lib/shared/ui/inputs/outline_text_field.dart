@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudge/shared/theme/theme.dart';
+import 'package:pudge/core/theme/theme.dart';
 
 class CustomOutlineTextField extends StatelessWidget {
   const CustomOutlineTextField({

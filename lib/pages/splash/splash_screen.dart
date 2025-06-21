@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:pudge/shared/theme/colors.dart';
+import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/shared/ui/logo/logo.dart';
 
 class SplashScreen extends StatelessWidget {

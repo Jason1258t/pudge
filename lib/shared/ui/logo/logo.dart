@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudge/shared/utils/assets.dart';
+import 'package:pudge/core/utils/assets.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key, this.size = 120});

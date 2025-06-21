@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudge/shared/theme/filters.dart';
+import 'package:pudge/core/theme/theme.dart';
 
 class GlassContainer extends StatelessWidget {
   GlassContainer({
