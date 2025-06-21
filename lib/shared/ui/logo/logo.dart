@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pudge/core/theme/app_radii.dart';
 import 'package:pudge/core/utils/assets.dart';
 
 class AppLogo extends StatelessWidget {
@@ -12,7 +13,7 @@ class AppLogo extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppRadii.allMd,
         image: DecorationImage(image: AssetImage(Assets.image('pudge.jpg'))),
         boxShadow: [
           BoxShadow(

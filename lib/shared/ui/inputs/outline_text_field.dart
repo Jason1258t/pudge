@@ -8,7 +8,8 @@ class CustomOutlineTextField extends StatelessWidget {
     this.hintText,
     this.keyboardType,
     this.prefixIcon,
-    this.obscureText = false, this.suffixIcon,
+    this.obscureText = false,
+    this.suffixIcon,
   });
 
   final TextEditingController? controller;
@@ -21,28 +22,28 @@ class CustomOutlineTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: AppRadii.allLg,
       child: BackdropFilter(
         filter: AppFilters.backdropFilter,
         child: Container(
           decoration: BoxDecoration(gradient: _leftTopGradient),
           child: TextField(
             controller: controller,
-            style: TextStyle(color: AppColors.onBcg, fontSize: 18),
-            cursorColor: AppColors.onBcg,
+            style: TextStyle(color: AppColors.onBackground, fontSize: 18),
+            cursorColor: AppColors.onBackground,
             keyboardType: keyboardType,
             obscureText: obscureText,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(12),
+              contentPadding: EdgeInsets.all(AppSpacing.md),
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
               hintText: hintText,
               hintStyle: TextStyle(
-                color: AppColors.hint,
+                color: AppColors.textHint,
                 fontWeight: FontWeight.w500,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: AppRadii.allLg,
                 borderSide: BorderSide(color: Colors.white, width: 1),
               ),
               focusedBorder: OutlineInputBorder(

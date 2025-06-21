@@ -14,7 +14,7 @@ class _CustomBackgroundState extends State<CustomBackground> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.bcg,
+      color: AppColors.background,
       child: Stack(children: [...buildBcdItems(context), widget.child]),
     );
   }

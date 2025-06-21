@@ -10,9 +10,10 @@ class GlassContainer extends StatelessWidget {
     this.height,
     this.child,
   }) {
-    padding = contentPadding ?? EdgeInsets.all(16);
+    padding = contentPadding ?? EdgeInsets.all(AppSpacing.md);
   }
 
+  /// should use app_radii instead
   final double borderRadius;
   late final EdgeInsets? padding;
   final double? width;

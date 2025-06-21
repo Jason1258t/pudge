@@ -13,7 +13,7 @@ class SocialButton extends StatelessWidget {
     return InkWell(
       onTap: callback,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: AppRadii.allMd,
         child: BackdropFilter(
           filter: AppFilters.backdropFilter,
           child: Container(

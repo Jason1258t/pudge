@@ -17,13 +17,13 @@ class CustomElevatedButton extends StatelessWidget {
       onPressed: callback,
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: AppRadii.allLg),
       ),
       child: Container(
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(AppSpacing.md),
         height: 58,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: AppRadii.allLg,
           gradient: AppGradients.inst,
         ),
         child: Row(

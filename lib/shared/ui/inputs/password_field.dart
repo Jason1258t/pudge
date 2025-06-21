@@ -18,12 +18,12 @@ class PasswordField extends HookWidget {
       hintText: hint,
       controller: controller,
       keyboardType: TextInputType.visiblePassword,
-      prefixIcon: Icon(Icons.lock_outline_rounded, color: AppColors.hint),
+      prefixIcon: Icon(Icons.lock_outline_rounded, color: AppColors.textHint),
       obscureText: passwordObscure.value,
       suffixIcon: IconButton(
         onPressed: () => passwordObscure.value = !passwordObscure.value,
         icon: Icon(Icons.remove_red_eye_outlined),
-        color: AppColors.hint,
+        color: AppColors.textHint,
       ),
     );
   }

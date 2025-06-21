@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               'Welcome to\nPUDGE',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColors.onBcg,
+                color: AppColors.onBackground,
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
               ),
@@ -47,7 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     'We\'ve been waiting for you, by pressing register you accepts our privacy policy',
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppColors.onBcg.withAlpha(100),
+                      color: AppColors.onBackground.withAlpha(100),
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -57,7 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     keyboardType: TextInputType.emailAddress,
                     prefixIcon: Icon(
                       Icons.email_outlined,
-                      color: AppColors.hint,
+                      color: AppColors.textHint,
                     ),
                   ),
                   Gap(16),
