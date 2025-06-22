@@ -1,0 +1,1 @@
+enum ProfilePostsTypeEnum { saved, released }

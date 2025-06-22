@@ -30,9 +30,28 @@ abstract class AppTypography {
     color: AppColors.onPrimary,
   );
 
+  static final TextStyle bodyLarge = _baseStyle.copyWith(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    color: AppColors.onBackground,
+
+  );
+
   static final TextStyle bodyRegular = _baseStyle.copyWith(
     fontSize: 16,
     fontWeight: FontWeight.w400, // Regular
+    color: AppColors.onBackground,
+  );
+
+  static final TextStyle bodySmall = _baseStyle.copyWith(
+    fontSize: 14,
+    fontWeight: FontWeight.w300, // Regular
+    color: AppColors.onBackground,
+  );
+
+  static final TextStyle titleLarge = _baseStyle.copyWith(
+    fontSize: 24,
+    fontWeight: FontWeight.w600, // Semi-bold
     color: AppColors.onBackground,
   );
 

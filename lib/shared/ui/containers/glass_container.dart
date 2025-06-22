@@ -4,7 +4,7 @@ import 'package:pudge/core/theme/theme.dart';
 class GlassContainer extends StatelessWidget {
   GlassContainer({
     super.key,
-    this.borderRadius = 12,
+    this.borderRadius = AppRadii.allLg,
     EdgeInsets? contentPadding,
     this.width,
     this.height,
@@ -13,8 +13,7 @@ class GlassContainer extends StatelessWidget {
     padding = contentPadding ?? EdgeInsets.all(AppSpacing.md);
   }
 
-  /// should use app_radii instead
-  final double borderRadius;
+  final BorderRadius borderRadius;
   late final EdgeInsets? padding;
   final double? width;
   final double? height;
@@ -23,7 +22,7 @@ class GlassContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: borderRadius,
       child: BackdropFilter(
         filter: AppFilters.backdropFilter,
         child: Container(
@@ -31,7 +30,7 @@ class GlassContainer extends StatelessWidget {
           height: height,
           padding: padding,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: borderRadius,
             color: Color(0xffB379DF).withAlpha(20),
           ),
           child: child,
