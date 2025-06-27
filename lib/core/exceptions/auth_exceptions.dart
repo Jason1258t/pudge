@@ -47,3 +47,10 @@ class WrongPasswordException implements AppAuthException {
     return "Password is wrong";
   }
 }
+
+class NotAuthorizedException implements AppAuthException {
+  @override
+  String toString() {
+    return "Application not authorized";
+  }
+}
