@@ -1,23 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/core/api/services/dio_service.dart';
 import 'package:pudge/core/api/services/service_locator.dart';
 import 'package:pudge/core/exceptions/auth_exceptions.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'services/token_service/token_service.dart';
-import 'services/token_service/token_service_impl.dart';
-
-part 'api_service.g.dart';
 
 part 'options.dart';
 
 part 'services/interceptor.dart';
-
-@riverpod
-ApiService apeService(Ref ref) {
-  return ApiService(ref.watch(tokenServiceProvider));
-}
 
 class ApiService {
   final _dio = Dio();
