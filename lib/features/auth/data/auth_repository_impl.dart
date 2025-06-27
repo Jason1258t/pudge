@@ -1,5 +1,8 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pudge/app/api_registery.dart';
 import 'package:pudge/core/firebase/auth/firebase_auth_service.dart';
 import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/features/auth/data/auth_api.dart';
 import 'package:pudge/features/auth/domain/app_authorization_state.dart';
 import 'package:pudge/features/auth/domain/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,15 +12,23 @@ import 'package:pudge/core/firebase/firebase_user_map.dart';
 part 'auth_repository_impl.g.dart';
 
 @Riverpod(keepAlive: true)
-AuthRepository authRepository(ref) {
-  return AuthRepositoryImpl(ref.watch(firebaseAuthServiceProvider));
+AuthRepository authRepository(Ref ref) {
+  return AuthRepositoryImpl(
+    authService: ref.watch(firebaseAuthServiceProvider),
+    authApi: ref.watch(apiServiceProvider).getService<AuthApi>(),
+  );
 }
 
 class AuthRepositoryImpl implements AuthRepository {
   final FirebaseAuthService _auth;
+  final AuthApi _authApi;
   late final BehaviorSubject<AppAuthorizationState> _appAuthStateChanges;
 
-  AuthRepositoryImpl(FirebaseAuthService authService) : _auth = authService {
+  AuthRepositoryImpl({
+    required FirebaseAuthService authService,
+    required AuthApi authApi,
+  }) : _auth = authService,
+       _authApi = authApi {
     _appAuthStateChanges = BehaviorSubject<AppAuthorizationState>.seeded(
       AppUnAuthState(),
     );
@@ -40,13 +51,20 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future loginWithEmail(String email, String password) =>
-      _auth.signInWithEmailAndPassword(email, password);
+  Future loginWithEmail(String email, String password) async {
+    await _auth.signInWithEmailAndPassword(email, password);
+    await _authApi.auth((await _auth.currentUser!.getIdToken())!);
+  }
 
   @override
-  Future registerWithEmail(String email, String password) =>
-      _auth.registerWithEmailAndPassword(email, password);
+  Future registerWithEmail(String email, String password) async {
+    await _auth.registerWithEmailAndPassword(email, password);
+    await _authApi.auth((await _auth.currentUser!.getIdToken())!);
+  }
 
   @override
-  Future signInWithGoogle() => _auth.signInWithGoogle();
+  Future signInWithGoogle() async {
+    await _auth.signInWithGoogle();
+    await _authApi.auth((await _auth.currentUser!.getIdToken())!);
+  }
 }
