@@ -27,7 +27,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<User> editUser(User newData) async {
-    await _firestoreDatasource.saveUserData(newData);
+    await _firestoreDatasource.editUserData(newData);
     return newData;
   }
 

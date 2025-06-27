@@ -30,7 +30,7 @@ class UserFirestoreDatasource {
     }
   }
 
-  Future<void> saveUserData(User user) async {
+  Future<void> editUserData(User user) async {
     await _userCollection.doc(user.id).set(user.toJson());
   }
 }
