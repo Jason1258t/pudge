@@ -26,7 +26,7 @@ class ApiService {
 
   void registerService<T extends DioService>(T newService) {
     _services.registerService(newService);
-    newService.initialize(_dio);
+    newService.initialize(_dio, tokenService: _tokenService);
   }
 
   T getService<T extends DioService>() => _services.getService<T>();
