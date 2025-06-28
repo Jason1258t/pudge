@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/entities/user/user.dart';
 
 extension FirebaseUserMapper on firebase_auth.User {
   User toDomain() {

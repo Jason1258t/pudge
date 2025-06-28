@@ -1,4 +1,4 @@
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/entities/user/user.dart';
 import 'package:pudge/features/auth/domain/app_authorization_state.dart';
 import 'package:rxdart/rxdart.dart';
 

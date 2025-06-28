@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/entities/user/user.dart';
 import 'package:pudge/pages/profile/ui/images_grid.dart';
 import 'package:pudge/pages/profile/ui/profile_tabs.dart';
 import 'package:pudge/pages/profile/ui/user_info/user_info.dart';
@@ -47,14 +47,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       backgroundColor: AppColors.background,
-      // padding: const EdgeInsets.all(AppSpacing.md),
       body: CustomScrollView(
         slivers: [
           UserInfo(user),
           SliverGap(AppSpacing.lg),
           ProfileTabs(selected: _currentPage, onSelect: selectPage),
           SliverGap(AppSpacing.md),
-          ProfileImagesGrid(images: [...images, ...images, ...images])
+          ProfileImagesGrid(images: [...images, ...images, ...images]),
         ],
       ),
     );

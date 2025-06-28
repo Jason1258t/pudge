@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/entities/user/user.dart';
 import 'package:pudge/widgets/user_avatar.dart';
 
 class UserExpanded extends StatelessWidget {

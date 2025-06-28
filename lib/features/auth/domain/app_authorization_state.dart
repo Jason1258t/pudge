@@ -1,5 +1,5 @@
 import 'package:pudge/core/exceptions/auth_exceptions.dart';
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/entities/user/user.dart';
 
 sealed class AppAuthorizationState {}
 

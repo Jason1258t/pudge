@@ -10,6 +10,6 @@ class ApiServiceLocator {
 
   T getService<T extends DioService>() {
     if (_services.containsKey(T)) return _services[T];
-    throw Exception("Service doesn\'t exist");
+    throw Exception("Service doesn't exist");
   }
 }

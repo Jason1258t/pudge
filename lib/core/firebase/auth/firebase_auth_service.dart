@@ -23,6 +23,7 @@ class FirebaseAuthService {
   Stream<User?> get userChanges => _currentUserSubject;
   User? get currentUser => _auth.currentUser;
 
+
   Future<UserCredential> registerWithEmailAndPassword(
     String email,
     String password,

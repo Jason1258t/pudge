@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/entities/user/user.dart';
 import 'package:pudge/pages/profile/ui/user_info/user_collapsed.dart';
 import 'package:pudge/pages/profile/ui/user_info/user_expanded.dart';
 import 'package:pudge/shared/ui/app_bars/sliver_collapsing_header.dart';

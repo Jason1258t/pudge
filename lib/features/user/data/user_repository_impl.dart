@@ -1,6 +1,7 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/core/exceptions/user_exceptions.dart';
-import 'package:pudge/entities/user/create_user_dto/create_user_dto.dart';
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/entities/user/create_user_dto.dart';
+import 'package:pudge/entities/user/user.dart';
 import 'package:pudge/features/user/domain/user_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:pudge/features/user/data/datasources/user_firestore_datasource.dart';
@@ -8,13 +9,12 @@ import 'package:pudge/features/user/data/datasources/user_firestore_datasource.d
 part 'user_repository_impl.g.dart';
 
 @riverpod
-UserRepository userRepository(ref) {
+UserRepository userRepository(Ref ref) {
   return UserRepositoryImpl(ref.watch(userFirestoreDatasourceProvider));
 }
 
 class UserRepositoryImpl implements UserRepository {
   final UserFirestoreDatasource _firestoreDatasource;
-  User? _currentUser;
 
   UserRepositoryImpl(this._firestoreDatasource);
 
@@ -36,13 +36,5 @@ class UserRepositoryImpl implements UserRepository {
     final id = await _firestoreDatasource.createUser(data);
     final user = await _firestoreDatasource.getUserData(id);
     return user!;
-  }
-
-  @override
-  User? get currentUser => _currentUser;
-
-  @override
-  Future<void> setUserId(String uid) async {
-    _currentUser = await getUser(uid);
   }
 }

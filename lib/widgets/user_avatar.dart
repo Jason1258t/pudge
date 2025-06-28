@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pudge/entities/user/user/user.dart';
+import 'package:pudge/entities/user/user.dart';
 
 class UserAvatar extends StatelessWidget {
   const UserAvatar({super.key, required this.user, required this.size});
