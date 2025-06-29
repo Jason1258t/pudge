@@ -15,9 +15,9 @@ class UserAvatar extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.grey[300],
-        image: user.avatarUrl != null
+        image: user.avatar != null
             ? DecorationImage(
-                image: NetworkImage(user.avatarUrl!),
+                image: NetworkImage(user.avatar!.originalUrl),
                 fit: BoxFit.cover,
               )
             : null,

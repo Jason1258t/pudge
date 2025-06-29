@@ -24,7 +24,15 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   void clear() {
-    throw UnimplementedError();
+    _user = null;
+    _savedPosts = null;
+    _createdPosts = null;
+  }
+
+  @override
+  void clearPosts() {
+    _savedPosts = null;
+    _createdPosts = null;
   }
 
   @override

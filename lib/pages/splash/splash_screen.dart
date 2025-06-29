@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
+import 'package:pudge/shared/ui/animations/circular_progress_indicator.dart';
 import 'package:pudge/shared/ui/logo/logo.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -16,10 +17,7 @@ class SplashScreen extends StatelessWidget {
           children: [
             AppLogo(),
             Gap(48),
-            SizedBox(width: 30, height: 30, child: CircularProgressIndicator(
-              color: Colors.white,
-              strokeWidth: 3,
-            )),
+            CustomCircularProgressIndicator(),
           ],
         ),
       ),

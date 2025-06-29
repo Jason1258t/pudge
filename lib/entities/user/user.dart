@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pudge/entities/image/image.dart';
 
 part 'user.freezed.dart';
 
@@ -10,7 +11,7 @@ abstract class User with _$User {
     required String id,
     String? username,
     String? bio,
-    String? avatarUrl,
+    Image? avatar,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

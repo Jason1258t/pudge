@@ -7,4 +7,5 @@ abstract interface class ProfileRepository {
   Future<List<Post>> getCreatedPosts();
   Future<void> load();
   void clear();
+  void clearPosts();
 }

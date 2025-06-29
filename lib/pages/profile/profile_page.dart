@@ -1,22 +1,26 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Image;
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/user/user.dart';
+import 'package:pudge/features/profile/presentation/profile_notifier/user_notifier.dart';
 import 'package:pudge/pages/profile/ui/images_grid.dart';
 import 'package:pudge/pages/profile/ui/profile_tabs.dart';
 import 'package:pudge/pages/profile/ui/user_info/user_info.dart';
+import 'package:pudge/shared/ui/animations/circular_progress_indicator.dart';
 import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
 
+import '../../entities/image/image.dart';
 import 'model/profile_tabs.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends ConsumerState<ProfilePage> {
   ProfilePostsTypeEnum _currentPage = ProfilePostsTypeEnum.saved;
 
   void selectPage(ProfilePostsTypeEnum page) {
@@ -29,8 +33,11 @@ class _ProfilePageState extends State<ProfilePage> {
     id: '1',
     username: "John Doe",
     bio: "Talent creator from pudge app",
-    avatarUrl:
-        "https://i.pinimg.com/736x/63/b8/6b/63b86b5e857734b03c97791ac700d2c1.jpg",
+    avatar: Image(
+      id: "1",
+      originalUrl:
+          "https://i.pinimg.com/736x/e0/12/3d/e0123d96ce6fc5ce8e27a21472b1d125.jpg",
+    ),
   );
 
   final images = [
@@ -45,11 +52,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final userData = ref.watch(currentProfileNotifierProvider);
+
     return CustomScaffold(
       backgroundColor: AppColors.background,
       body: CustomScrollView(
         slivers: [
-          UserInfo(user),
+          userData.when(
+            data: (data) => UserInfo(data!),
+            error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
+            loading: () => SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
+          ),
           SliverGap(AppSpacing.lg),
           ProfileTabs(selected: _currentPage, onSelect: selectPage),
           SliverGap(AppSpacing.md),
