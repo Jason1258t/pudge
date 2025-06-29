@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' hide Image;
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/core/theme/theme.dart';
-import 'package:pudge/entities/user/user.dart';
+import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/features/profile/presentation/profile_notifier/user_notifier.dart';
 import 'package:pudge/pages/profile/ui/images_grid.dart';
 import 'package:pudge/pages/profile/ui/profile_tabs.dart';
@@ -10,7 +10,7 @@ import 'package:pudge/pages/profile/ui/user_info/user_info.dart';
 import 'package:pudge/shared/ui/animations/circular_progress_indicator.dart';
 import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
 
-import '../../entities/image/image.dart';
+import '../../features/profile/presentation/profile_notifier/posts_notifier.dart';
 import 'model/profile_tabs.dart';
 
 class ProfilePage extends ConsumerStatefulWidget {
@@ -28,17 +28,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       _currentPage = page;
     });
   }
-
-  final user = User(
-    id: '1',
-    username: "John Doe",
-    bio: "Talent creator from pudge app",
-    avatar: Image(
-      id: "1",
-      originalUrl:
-          "https://i.pinimg.com/736x/e0/12/3d/e0123d96ce6fc5ce8e27a21472b1d125.jpg",
-    ),
-  );
 
   final images = [
     "https://i.pinimg.com/736x/e0/12/3d/e0123d96ce6fc5ce8e27a21472b1d125.jpg",
@@ -61,7 +50,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           userData.when(
             data: (data) => UserInfo(data!),
             error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
-            loading: () => SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
+            loading: () =>
+                SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
           ),
           SliverGap(AppSpacing.lg),
           ProfileTabs(selected: _currentPage, onSelect: selectPage),
@@ -69,6 +59,24 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           ProfileImagesGrid(images: [...images, ...images, ...images]),
         ],
       ),
+    );
+  }
+
+  buildImages() {
+    final AsyncValue<List<Post>> postsProvider;
+    final repo = ref.watch(currentPostsNotifierProvider);
+    if (_currentPage == ProfilePostsTypeEnum.saved) {
+      postsProvider = repo.savedPosts;
+    } else {
+      postsProvider = repo.createdPosts;
+    }
+    return postsProvider.when(
+      data: (data) => ProfileImagesGrid(
+        images: data.map((e) => e.images.first.originalUrl).toList(),
+      ),
+      error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
+      loading: () =>
+          SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
     );
   }
 }
