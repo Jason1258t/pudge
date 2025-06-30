@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pudge/pages/auth/login_page.dart';
 import 'package:pudge/pages/splash/splash_screen.dart';
 
 void main() async {
@@ -16,7 +17,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: SplashScreen(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }
