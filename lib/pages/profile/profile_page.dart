@@ -47,12 +47,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       backgroundColor: AppColors.background,
       body: CustomScrollView(
         slivers: [
-          userData.when(
-            data: (data) => UserInfo(data!),
-            error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
-            loading: () =>
-                SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
-          ),
+          // userData.when(
+          //   data: (data) => UserInfo(data!),
+          //   error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
+          //   loading: () =>
+          //       SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
+          // ),
           SliverGap(AppSpacing.lg),
           ProfileTabs(selected: _currentPage, onSelect: selectPage),
           SliverGap(AppSpacing.md),

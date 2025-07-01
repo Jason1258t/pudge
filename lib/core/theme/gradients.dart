@@ -6,4 +6,10 @@ abstract class AppGradients {
     begin: Alignment(-1, -0.2),
     end: Alignment(1, 0.2)
   );
+
+  static final instDisabled = LinearGradient(
+      colors: [Color(0xff757575), Color(0xff2d2d2d)],
+      begin: Alignment(-1, -0.2),
+      end: Alignment(1, 0.2)
+  );
 }
