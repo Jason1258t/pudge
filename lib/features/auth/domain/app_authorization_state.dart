@@ -5,7 +5,7 @@ sealed class AppAuthorizationState {}
 
 class AppUnAuthState extends AppAuthorizationState {}
 
-final class AppAuthorizingState extends AppUnAuthState {}
+final class AppAuthLoadingState extends AppUnAuthState {}
 
 final class AppAuthErrorState extends AppUnAuthState {
   final AppAuthException exception;
@@ -13,8 +13,4 @@ final class AppAuthErrorState extends AppUnAuthState {
   AppAuthErrorState(this.exception);
 }
 
-final class AppAuthState extends AppAuthorizationState {
-  final User user;
-
-  AppAuthState(this.user);
-}
+final class AppAuthState extends AppAuthorizationState {}

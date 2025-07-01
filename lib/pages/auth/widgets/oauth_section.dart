@@ -4,7 +4,9 @@ import 'package:pudge/shared/ui/buttons/social_button.dart';
 import 'package:pudge/shared/utils/utils.dart';
 
 class OAuthButtonSection extends StatelessWidget {
-  const OAuthButtonSection({super.key});
+  const OAuthButtonSection({super.key,  this.googleSignIn});
+
+  final VoidCallback? googleSignIn;
 
   @override
   Widget build(BuildContext context) {

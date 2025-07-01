@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/pages/auth/login_page.dart';
-import 'package:pudge/pages/splash/splash_screen.dart';
+
+import 'app/router/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +16,11 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: LoginPage(),
+    final router = ref.watch(routerProvider);
+
+    return MaterialApp.router(
+      title: 'Pudge App',
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
   }

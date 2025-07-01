@@ -24,7 +24,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.pudge"
-        minSdk = flutter.minSdkVersion
+        minSdk = 23
+        ndkVersion = "27.0.12077973"
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

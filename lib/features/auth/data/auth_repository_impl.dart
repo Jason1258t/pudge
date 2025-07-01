@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/app/api_registery.dart';
 import 'package:pudge/core/firebase/auth/firebase_auth_service.dart';
@@ -29,42 +31,43 @@ class AuthRepositoryImpl implements AuthRepository {
     required AuthApi authApi,
   }) : _auth = authService,
        _authApi = authApi {
-    _appAuthStateChanges = BehaviorSubject<AppAuthorizationState>.seeded(
-      AppUnAuthState(),
-    );
-    _auth.userChanges.listen((user) {
-      if (user != null) {
-        _appAuthStateChanges.add(AppAuthState(user.toDomain()));
-      } else {
-        _appAuthStateChanges.add(AppUnAuthState());
-      }
-    });
+    _appAuthStateChanges = BehaviorSubject.seeded(AppUnAuthState());
+    _auth.userChanges.listen(_authListener);
+  }
+
+  _authListener(user) async {
+    if (user != null) {
+      await _authorizeApi();
+      _appAuthStateChanges.add(AppAuthState());
+    } else {
+      _appAuthStateChanges.add(AppUnAuthState());
+    }
+  }
+
+  Future<void> _authorizeApi() async {
+    final token = await _auth.currentUser!.getIdToken();
+    log(token.toString());
+    await _authApi.auth(token!);
   }
 
   @override
   get appAuthStateChanges => _appAuthStateChanges;
 
   @override
-  User? get currentUser {
-    if (_auth.currentUser != null) return _auth.currentUser!.toDomain();
-    return null;
-  }
-
-  @override
   Future loginWithEmail(String email, String password) async {
+    appAuthStateChanges.add(AppAuthLoadingState());
     await _auth.signInWithEmailAndPassword(email, password);
-    await _authApi.auth((await _auth.currentUser!.getIdToken())!);
   }
 
   @override
   Future registerWithEmail(String email, String password) async {
+    appAuthStateChanges.add(AppAuthLoadingState());
     await _auth.registerWithEmailAndPassword(email, password);
-    await _authApi.auth((await _auth.currentUser!.getIdToken())!);
   }
 
   @override
   Future signInWithGoogle() async {
+    appAuthStateChanges.add(AppAuthLoadingState());
     await _auth.signInWithGoogle();
-    await _authApi.auth((await _auth.currentUser!.getIdToken())!);
   }
 }

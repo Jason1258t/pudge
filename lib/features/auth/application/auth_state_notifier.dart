@@ -14,4 +14,13 @@ class AuthStateNotifier extends _$AuthStateNotifier {
     final AuthRepository authRepository = ref.watch(authRepositoryProvider);
     return authRepository.appAuthStateChanges;
   }
+
+  void register(String email, String password) =>
+      ref.watch(authRepositoryProvider).registerWithEmail(email, password);
+
+  void login(String email, String password) =>
+      ref.watch(authRepositoryProvider).loginWithEmail(email, password);
+
+  void signInWithGoogle() =>
+      ref.watch(authRepositoryProvider).signInWithGoogle();
 }
