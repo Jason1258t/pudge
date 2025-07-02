@@ -7,7 +7,7 @@ class CustomScaffold extends StatelessWidget {
     this.backgroundColor = AppColors.background,
     this.padding,
     this.centerContent = false,
-    this.body, this.appBar,
+    this.body, this.appBar, this.enableResize = false, this.bottomNavigationBar
   });
 
   final Color? backgroundColor;
@@ -15,13 +15,17 @@ class CustomScaffold extends StatelessWidget {
   final bool centerContent;
   final PreferredSizeWidget? appBar;
   final Widget? body;
+  final bool enableResize;
+  final Widget? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
     final content = centerContent ? Center(child: body) : body;
 
     return Scaffold(
+      resizeToAvoidBottomInset: enableResize,
       appBar: appBar,
+      bottomNavigationBar: bottomNavigationBar,
       backgroundColor: backgroundColor,
       body: Padding(padding: padding ?? EdgeInsets.zero, child: content),
     );

@@ -9,6 +9,7 @@ import 'package:pudge/pages/profile/ui/profile_tabs.dart';
 import 'package:pudge/pages/profile/ui/user_info/user_info.dart';
 import 'package:pudge/shared/ui/animations/circular_progress_indicator.dart';
 import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
+import 'package:pudge/shared/utils/test_models.dart';
 
 import '../../features/profile/presentation/profile_notifier/posts_notifier.dart';
 import 'model/profile_tabs.dart';
@@ -53,9 +54,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
           //   loading: () =>
           //       SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
           // ),
+          UserInfo(TestModels.user),
           SliverGap(AppSpacing.lg),
           ProfileTabs(selected: _currentPage, onSelect: selectPage),
-          SliverGap(AppSpacing.md),
+          SliverGap(AppSpacing.lg),
           ProfileImagesGrid(images: [...images, ...images, ...images]),
         ],
       ),

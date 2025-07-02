@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pudge/app/router/route_names/home_route_names.dart';
 import 'package:pudge/core/theme/colors.dart';
+import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
 
 class HomeShell extends StatelessWidget {
   final Widget child;
@@ -15,7 +16,7 @@ class HomeShell extends StatelessWidget {
     final loc = GoRouter.of(context).state.matchedLocation;
     final idx = HomeRouteNames.getPageIndex(loc);
 
-    return Scaffold(
+    return CustomScaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppColors.navigation,
