@@ -3,13 +3,11 @@ import 'dart:developer';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/app/api_registery.dart';
 import 'package:pudge/core/firebase/auth/firebase_auth_service.dart';
-import 'package:pudge/entities/user/user.dart';
 import 'package:pudge/features/auth/data/auth_api.dart';
 import 'package:pudge/features/auth/domain/app_authorization_state.dart';
 import 'package:pudge/features/auth/domain/auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:pudge/core/firebase/firebase_user_map.dart';
 
 part 'auth_repository_impl.g.dart';
 

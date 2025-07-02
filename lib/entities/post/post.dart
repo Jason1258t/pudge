@@ -12,7 +12,7 @@ abstract class Post with _$Post {
     required String id,
     required String title,
     required String description,
-    required List<Image> images,
+    required List<ImageData> images,
   }) = _Post;
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

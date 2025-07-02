@@ -7,7 +7,9 @@ extension FirebaseUserMapper on firebase_auth.User {
     return User(
       id: uid,
       username: displayName ?? email ?? "Unknown",
-      avatar: photoURL != null ? Image(id: "1", originalUrl: photoURL!) : null,
+      avatar: photoURL != null
+          ? ImageData(id: "1", originalUrl: photoURL!, width: 1, height: 1)
+          : null,
     );
   }
 }

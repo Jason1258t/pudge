@@ -1,6 +1,3 @@
-// screens/home_shell.dart
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pudge/app/router/route_names/home_route_names.dart';

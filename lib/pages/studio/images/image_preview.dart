@@ -8,38 +8,42 @@ class ImagePreview extends StatelessWidget {
   final XFile image;
   final VoidCallback onRemove;
 
-  const ImagePreview({super.key,
+  /// minimum width and height
+  final double minSize;
+
+  final double maxHeight;
+  final double maxWidth;
+
+  const ImagePreview({
+    super.key,
     required this.image,
     required this.onRemove,
+    this.minSize = 80,
+    this.maxHeight = 250,
+    this.maxWidth = 300,
   });
-
-  static const double minSize = 80;
-  static const double maxSize = 220;
-  static const double maxWidth = 300;
 
   @override
   Widget build(BuildContext context) {
+
+
     return ConstrainedBox(
-      constraints: const BoxConstraints(
+      constraints: BoxConstraints(
         minWidth: minSize,
         minHeight: minSize,
         maxWidth: maxWidth,
-        maxHeight: maxSize,
+        maxHeight: maxHeight,
       ),
       child: Stack(
         children: [
           ClipRRect(
             borderRadius: AppRadii.allLg,
             child: Container(
-              width: double.infinity,
-              height: double.infinity,
               color: Colors.black12,
               alignment: Alignment.center,
               child: Image.file(
                 File(image.path),
-                fit: BoxFit.contain, // сохраняем пропорции
-                width: double.infinity,
-                height: double.infinity,
+                fit: BoxFit.contain,
               ),
             ),
           ),
@@ -55,11 +59,7 @@ class ImagePreview extends StatelessWidget {
                   color: Colors.black.withOpacity(0.6),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.close,
-                  size: 16,
-                  color: Colors.white,
-                ),
+                child: const Icon(Icons.close, size: 16, color: Colors.white),
               ),
             ),
           ),
