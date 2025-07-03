@@ -25,8 +25,6 @@ class ImagePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return ConstrainedBox(
       constraints: BoxConstraints(
         minWidth: minSize,
@@ -41,10 +39,7 @@ class ImagePreview extends StatelessWidget {
             child: Container(
               color: Colors.black12,
               alignment: Alignment.center,
-              child: Image.file(
-                File(image.path),
-                fit: BoxFit.contain,
-              ),
+              child: Image.file(File(image.path), fit: BoxFit.contain),
             ),
           ),
           Positioned(
@@ -56,7 +51,7 @@ class ImagePreview extends StatelessWidget {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
+                  color: Colors.black.withAlpha((255 * 0.6).floor()),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.close, size: 16, color: Colors.white),

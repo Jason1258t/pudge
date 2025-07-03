@@ -4,7 +4,7 @@ import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pudge/shared/utils/test_models.dart';
 
-import 'image_with_caption.dart';
+import 'post_widget.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -17,6 +17,7 @@ class ExplorePage extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
         title: Container(
           decoration: BoxDecoration(
             border: Border(
@@ -32,8 +33,9 @@ class ExplorePage extends StatelessWidget {
         ),
       ),
       body: MasonryGridView.count(
+        physics: BouncingScrollPhysics(),
         crossAxisCount: 2,
-        itemBuilder: (_, i) => NetworkImageWithCaption(image: images[i], caption: 'caption',),
+        itemBuilder: (_, i) => PostWidget(image: images[i], caption: 'Caption'),
         itemCount: images.length,
         mainAxisSpacing: AppSpacing.xs,
         crossAxisSpacing: AppSpacing.sm,

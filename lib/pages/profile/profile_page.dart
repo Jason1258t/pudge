@@ -30,7 +30,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
     });
   }
 
-  final images = TestModels.imageUrls;
+  final images = TestModels.images;
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +41,11 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       body: CustomScrollView(
         slivers: [
           // userData.when(
-          //   data: (data) => UserInfo(data!),
-          //   error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
-          //   loading: () =>
-          //       SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
-          // ),
-          UserInfo(TestModels.user),
+          //   data: (data) => UserInfo(data!),          //   error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),          //   loading: () =>          //       SliverToBoxAdapter(child: CustomCircularProgressIndicator()),          // ),          UserInfo(TestModels.user),
           SliverGap(AppSpacing.lg),
           ProfileTabs(selected: _currentPage, onSelect: selectPage),
           SliverGap(AppSpacing.lg),
-          ProfileImagesGrid(images: [...images, ...images, ...images]),
+          ProfileImagesGrid(images: images),
         ],
       ),
     );
@@ -65,9 +60,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       postsProvider = repo.createdPosts;
     }
     return postsProvider.when(
-      data: (data) => ProfileImagesGrid(
-        images: data.map((e) => e.images.first.originalUrl).toList(),
-      ),
+      data: (data) =>
+          ProfileImagesGrid(images: data.map((e) => e.images.first).toList()),
       error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
       loading: () =>
           SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
