@@ -27,10 +27,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   void selectPage(ProfilePostsTypeEnum page) {
     setState(() {
       _currentPage = page;
-    });
-  }
-
-  final images = TestModels.imageUrls;
+    });  }
+  final images = TestModels.images;
 
   @override
   Widget build(BuildContext context) {
@@ -41,21 +39,12 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       body: CustomScrollView(
         slivers: [
           // userData.when(
-          //   data: (data) => UserInfo(data!),
-          //   error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
-          //   loading: () =>
-          //       SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
-          // ),
-          UserInfo(TestModels.user),
+          //   data: (data) => UserInfo(data!),          //   error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),          //   loading: () =>          //       SliverToBoxAdapter(child: CustomCircularProgressIndicator()),          // ),          UserInfo(TestModels.user),
           SliverGap(AppSpacing.lg),
           ProfileTabs(selected: _currentPage, onSelect: selectPage),
           SliverGap(AppSpacing.lg),
-          ProfileImagesGrid(images: [...images, ...images, ...images]),
-        ],
-      ),
-    );
-  }
-
+          ProfileImagesGrid(images: images),
+        ],      ),    );  }
   buildImages() {
     final AsyncValue<List<Post>> postsProvider;
     final repo = ref.watch(currentPostsNotifierProvider);
@@ -63,14 +52,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       postsProvider = repo.savedPosts;
     } else {
       postsProvider = repo.createdPosts;
-    }
-    return postsProvider.when(
+    }    return postsProvider.when(
       data: (data) => ProfileImagesGrid(
-        images: data.map((e) => e.images.first.originalUrl).toList(),
-      ),
-      error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
+        images: data.map((e) => e.images.first).toList(),
+      ),      error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),
       loading: () =>
           SliverToBoxAdapter(child: CustomCircularProgressIndicator()),
-    );
-  }
-}
+    );  }}

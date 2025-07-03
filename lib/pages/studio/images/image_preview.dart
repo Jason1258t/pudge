@@ -56,7 +56,7 @@ class ImagePreview extends StatelessWidget {
                 width: 24,
                 height: 24,
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.6),
+                  color: Colors.black.withAlpha((255 * 0.6).floor()),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.close, size: 16, color: Colors.white),
