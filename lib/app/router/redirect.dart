@@ -22,7 +22,7 @@ class AppRedirectManager {
     final inAuthFlow = AuthRouteNames.isAuthPage(loc);
 
     if (skipAuthFlow) {
-      if (!loc.contains('home')) return HomeRouteNames.explore;
+      if (!loc.contains('home') && !loc.contains('post')) return HomeRouteNames.explore;
       return null;
     }
 

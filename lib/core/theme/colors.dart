@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 abstract class AppColors {
   static const primary = Color(0xff8117be);
@@ -7,4 +7,5 @@ abstract class AppColors {
   static const navigation = Color(0xff000000);
   static const onBackground = Color(0xffEFEFEF);
   static const textHint = Color(0xffA4A4A4);
+  static const surfaceVariant = Colors.black12;
 }

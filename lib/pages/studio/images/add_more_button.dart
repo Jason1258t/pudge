@@ -15,7 +15,7 @@ class AddMoreButton extends StatelessWidget {
       margin:  EdgeInsets.only(right: AppSpacing.sm),
       decoration: BoxDecoration(
         borderRadius: AppRadii.allMd,
-        color: Colors.black12,
+        color: AppColors.surfaceVariant,
       ),
       child: Material(
         color: Colors.transparent,

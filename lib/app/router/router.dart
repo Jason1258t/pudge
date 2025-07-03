@@ -6,6 +6,7 @@ import 'package:pudge/pages/auth/login_page.dart';
 import 'package:pudge/pages/auth/register_page.dart';
 import 'package:pudge/pages/explore/explore_page.dart';
 import 'package:pudge/pages/home/home_shell.dart';
+import 'package:pudge/pages/post/post_page.dart';
 import 'package:pudge/pages/profile/profile_page.dart';
 import 'package:pudge/pages/splash/splash_screen.dart';
 import 'package:pudge/pages/studio/studio_page.dart';
@@ -34,9 +35,16 @@ GoRouter router(Ref ref) {
         path: AuthRouteNames.register,
         builder: (_, __) => const RegisterPage(),
       ),
-
       ShellRoute(
-        builder: (_, __, child) => HomeShell(child: child),
+        builder: (_, state, child) {
+          final loc = state.matchedLocation;
+          final idx = HomeRouteNames.getPageIndex(loc);
+
+          return HomeShell(
+            index: idx != -1 ? idx : 0, // TODO rework
+            child: child,
+          );
+        },
         routes: [
           GoRoute(
             path: HomeRouteNames.explore,
@@ -54,6 +62,7 @@ GoRouter router(Ref ref) {
           ),
         ],
       ),
+      GoRoute(path: '/post', builder: (_, __) => PostPage()),
     ],
   );
 }

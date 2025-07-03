@@ -6,28 +6,38 @@ import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
 
 class HomeShell extends StatelessWidget {
   final Widget child;
-  const HomeShell({required this.child, super.key});
+  final int index;
+
+  const HomeShell({required this.child, super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    final loc = GoRouter.of(context).state.matchedLocation;
-    final idx = HomeRouteNames.getPageIndex(loc);
-
     return CustomScaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: AppColors.navigation,
-
-        currentIndex: idx,
+        currentIndex: index,
         unselectedItemColor: AppColors.onBackground,
         selectedItemColor: AppColors.primary,
         onTap: (i) {
           context.go(HomeRouteNames.getPageRouteByIndex(i));
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Tab 1'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Studio'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore_outlined),
+            activeIcon: Icon(Icons.explore),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt_outlined),
+            activeIcon: Icon(Icons.camera_alt),
+            label: 'Studio',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_2_outlined),
+            activeIcon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
       ),
     );

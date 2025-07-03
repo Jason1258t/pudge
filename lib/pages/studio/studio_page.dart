@@ -17,53 +17,6 @@ class StudioPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final form = useStudioFormState();
 
-    Future<void> pickImages(BuildContext context) async {
-      final picker = ImagePicker();
-      showModalBottomSheet(
-        context: context,
-        backgroundColor: AppColors.navigation,
-        builder: (context) => SafeArea(
-          child: Wrap(
-            children: [
-              ListTile(
-                leading: const Icon(
-                  Icons.photo_library,
-                  color: AppColors.onBackground,
-                ),
-                title: Text(
-                  'Pick from gallery',
-                  style: AppTypography.bodySmall,
-                ),
-                onTap: () async {
-                  Navigator.pop(context);
-                  final images = await picker.pickMultiImage();
-                  if (images.isNotEmpty) {
-                    form.images.value = images;
-                  }
-                },
-              ),
-              ListTile(
-                leading: const Icon(
-                  Icons.camera_alt,
-                  color: AppColors.onBackground,
-                ),
-                title: Text('Take photo', style: AppTypography.bodySmall),
-                onTap: () async {
-                  Navigator.pop(context);
-                  final image = await picker.pickImage(
-                    source: ImageSource.camera,
-                  );
-                  if (image != null) {
-                    form.images.value = [image];
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
     return CustomScaffold(
       padding: EdgeInsets.all(AppSpacing.lg),
       appBar: AppBar(
@@ -74,7 +27,7 @@ class StudioPage extends HookConsumerWidget {
       body: Column(
         children: [
           ImagesSection(
-            pickImages: pickImages,
+            pickImages: (context) => pickImages(context, form),
             images: form.images.value,
             onImagesChanged: (images) => form.images.value = images,
           ),
@@ -103,8 +56,49 @@ class StudioPage extends HookConsumerWidget {
         ],
       ),
     );
-
-
   }
 
+  Future<void> pickImages(BuildContext context, StudioFormState form) async {
+    final picker = ImagePicker();
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.navigation,
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(
+                Icons.photo_library,
+                color: AppColors.onBackground,
+              ),
+              title: Text('Pick from gallery', style: AppTypography.bodySmall),
+              onTap: () async {
+                Navigator.pop(context);
+                final images = await picker.pickMultiImage();
+                if (images.isNotEmpty) {
+                  form.images.value = images;
+                }
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.camera_alt,
+                color: AppColors.onBackground,
+              ),
+              title: Text('Take photo', style: AppTypography.bodySmall),
+              onTap: () async {
+                Navigator.pop(context);
+                final image = await picker.pickImage(
+                  source: ImageSource.camera,
+                );
+                if (image != null) {
+                  form.images.value = [image];
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
