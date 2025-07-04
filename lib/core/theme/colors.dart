@@ -6,6 +6,7 @@ abstract class AppColors {
   static const background = Color(0xff151316);
   static const navigation = Color(0xff000000);
   static const onBackground = Color(0xffEFEFEF);
+  static const red = Color(0xffC50056);
   static const textHint = Color(0xffA4A4A4);
   static const surfaceVariant = Colors.black12;
 }
