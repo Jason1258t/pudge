@@ -6,43 +6,29 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/image/image.dart';
+import 'package:pudge/entities/post/post.dart';
 
 class PostWidget extends StatelessWidget {
-  final String caption;
-  final ImageData image;
+  final Post post;
 
-  const PostWidget({super.key, required this.image, required this.caption});
+  const PostWidget({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('/post');
+        context.push('/post/${post.id}');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: AppRadii.allLg,
-            child: AspectRatio(
-              aspectRatio: image.aspectRatio,
-              child: CachedNetworkImage(
-                imageUrl: image.originalUrl,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                ),
-                errorWidget: (context, url, error) =>
-                    const Icon(Icons.broken_image),
-              ),
-            ),
-          ),
+          _image(),
           Gap(AppSpacing.xs),
           Row(
             children: [
               Expanded(
                 child: Text(
-                  caption,
+                  post.title,
                   style: AppTypography.bodySmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -63,6 +49,24 @@ class PostWidget extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  _image() {
+    final image = post.images.first;
+
+    return ClipRRect(
+      borderRadius: AppRadii.allLg,
+      child: AspectRatio(
+        aspectRatio: image.aspectRatio,
+        child: CachedNetworkImage(
+          imageUrl: image.originalUrl,
+          fit: BoxFit.cover,
+          placeholder: (context, url) =>
+          const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+          errorWidget: (context, url, error) => const Icon(Icons.broken_image),
+        ),
       ),
     );
   }

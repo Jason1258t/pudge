@@ -7,9 +7,9 @@ import 'package:pudge/shared/utils/test_models.dart';
 import 'post_widget.dart';
 
 class ExplorePage extends StatelessWidget {
-  const ExplorePage({super.key});
+  ExplorePage({super.key});
 
-  final images = TestModels.images;
+  final posts = TestModels.posts;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class ExplorePage extends StatelessWidget {
       body: MasonryGridView.count(
         physics: BouncingScrollPhysics(),
         crossAxisCount: 2,
-        itemBuilder: (_, i) => PostWidget(image: images[i], caption: 'Caption'),
-        itemCount: images.length,
+        itemBuilder: (_, i) => PostWidget(post: posts[i]),
+        itemCount: posts.length,
         mainAxisSpacing: AppSpacing.xs,
         crossAxisSpacing: AppSpacing.sm,
       ),

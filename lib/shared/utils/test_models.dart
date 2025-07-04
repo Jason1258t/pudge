@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:pudge/entities/image/image.dart';
+import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/entities/user/user.dart';
 
 abstract class TestModels {
@@ -105,6 +108,41 @@ abstract class TestModels {
       height: 761,
     ),
   ];
+
+  static final posts = _generatePostsOneToOne(images);
+
+  static List<Post> _generatePostsOneToOne(List<ImageData> allImages) {
+    final List<Post> posts = [];
+    final random = Random();
+    int idCounter = 1;
+
+    for (final image in allImages) {
+      final List<ImageData> postImages = [image];
+
+      final additionalCount = random.nextInt(3);
+      for (int i = 0; i < additionalCount; i++) {
+        final extra = allImages[random.nextInt(allImages.length)];
+        postImages.add(extra);
+      }
+
+      posts.add(
+        Post(
+          id: '${idCounter++}',
+          title: 'Post $idCounter',
+          description: 'Auto-generated post $idCounter',
+          images: postImages,
+          createdAt: DateTime.now().subtract(Duration(minutes: idCounter * 4)),
+          commentsCount: random.nextInt(30),
+          likesCount: random.nextInt(100),
+          isLiked: random.nextBool(),
+          avgScore: 1.5 + random.nextDouble() * 3.5,
+        ),
+      );
+    }
+
+    return posts;
+  }
+
   static const imageUrls = [
     "https://i.pinimg.com/736x/e0/12/3d/e0123d96ce6fc5ce8e27a21472b1d125.jpg",
     "https://i.pinimg.com/736x/45/87/ba/4587baafd4ee717696c886585ee0ccf1.jpg",

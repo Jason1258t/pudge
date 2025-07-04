@@ -48,8 +48,7 @@ GoRouter router(Ref ref) {
         routes: [
           GoRoute(
             path: HomeRouteNames.explore,
-            pageBuilder: (_, __) =>
-                const NoTransitionPage(child: ExplorePage()),
+            pageBuilder: (_, __) => NoTransitionPage(child: ExplorePage()),
           ),
           GoRoute(
             path: HomeRouteNames.studio,
@@ -62,7 +61,10 @@ GoRouter router(Ref ref) {
           ),
         ],
       ),
-      GoRoute(path: '/post', builder: (_, __) => PostPage()),
+      GoRoute(
+        path: '/post/:id',
+        builder: (_, state) => PostPage(postId: state.pathParameters['id']!),
+      ),
     ],
   );
 }
