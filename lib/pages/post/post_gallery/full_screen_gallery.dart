@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:pudge/core/theme/app_spacing.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
 import 'package:pudge/shared/ui/buttons/back_button.dart';
@@ -23,6 +25,15 @@ class FullScreenGallery extends StatefulWidget {
 class _FullScreenGalleryState extends State<FullScreenGallery> {
   int currPage = 0;
 
+  late final PageController controller;
+
+  @override
+  void initState() {
+    controller = PageController(initialPage: widget.initialIndex);
+    currPage = widget.initialIndex;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -30,12 +41,14 @@ class _FullScreenGalleryState extends State<FullScreenGallery> {
         children: [
           Positioned.fill(
             child: PhotoViewGallery.builder(
+              pageController: controller,
               onPageChanged: (page) => setState(() {
                 currPage = page;
               }),
               itemCount: widget.images.length,
               builder: (_, idx) => PhotoViewGalleryPageOptions.customChild(
-                minScale: 0.5,
+                minScale: 0.8,
+                maxScale: PhotoViewComputedScale.contained * 3,
                 basePosition: Alignment(0, -0.3),
                 child: CachedNetworkImage(
                   imageUrl: widget.images[idx].originalUrl,
@@ -50,17 +63,19 @@ class _FullScreenGalleryState extends State<FullScreenGallery> {
             ),
           ),
           Positioned(
-            top: MediaQuery.paddingOf(context).top,
+            top: MediaQuery.paddingOf(context).top + AppSpacing.sm,
             left: 20,
             child: CustomOverlayBackButton(),
           ),
 
-          Positioned(
-            bottom: MediaQuery.paddingOf(context).bottom + 20,
-            left: 0,
-            right: 0,
-            child: GalleryDots(length: widget.images.length, curr: currPage),
-          ),
+          if (widget.images.length > 1) ...[
+            Positioned(
+              bottom: MediaQuery.paddingOf(context).bottom + 20,
+              left: 0,
+              right: 0,
+              child: GalleryDots(length: widget.images.length, curr: currPage),
+            ),
+          ],
         ],
       ),
     );
