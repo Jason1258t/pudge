@@ -1,14 +1,6 @@
-import 'dart:developer';
-import 'dart:math' hide log;
-
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pudge/core/theme/app_radii.dart';
-import 'package:pudge/core/theme/colors.dart';
-import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/pages/post/post_gallery/post_gallery.dart';
-import 'package:pudge/pages/post/post_gallery/post_image.dart';
 import 'package:pudge/shared/ui/buttons/back_button.dart';
 import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
 import 'package:pudge/shared/utils/test_models.dart';
@@ -42,6 +34,7 @@ class PostPage extends StatelessWidget {
                     minHeight: 100,
                   ),
                 ),
+
               ],
             ),
           ),

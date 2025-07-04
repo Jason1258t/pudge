@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:pudge/core/theme/colors.dart';
 import 'package:pudge/entities/image/image.dart';
+import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
 
+import 'full_screen_gallery.dart';
 import 'post_image.dart';
 
 class PostGallery extends StatefulWidget {
@@ -46,8 +48,20 @@ class _PostGalleryState extends State<PostGallery> {
           constraints: widget.constraints,
           child: PageView.builder(
             controller: controller,
-            itemBuilder: (context, index) =>
-                PostImage(image: widget.images[index]),
+            itemBuilder: (context, index) => PostImage(
+              image: widget.images[index],
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => FullScreenGallery(
+                      images: widget.images,
+                      initialIndex: index,
+                    ),
+                  ),
+                );
+              },
+            ),
             itemCount: widget.images.length,
           ),
         ),
@@ -56,40 +70,14 @@ class _PostGalleryState extends State<PostGallery> {
             bottom: 16,
             left: 0,
             right: 0,
-            child: Center(
-              child: Container(
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.black54,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: _buildDots(),
-                ),
-              ),
-            ),
+            child: GalleryDots(length: widget.images.length, curr: idx),
           ),
         ],
       ],
     );
   }
 
-  _buildDots() {
-    return List.generate(
-      widget.images.length,
-      (index) => Container(
-        width: 8,
-        height: 8,
-        margin: EdgeInsets.symmetric(horizontal: 2),
-        decoration: ShapeDecoration(
-          shape: CircleBorder(),
-          color: idx == index ? AppColors.primary : Colors.white30,
-        ),
-      ),
-    );
-  }
+  
 
   static double _getMaxHeight(BuildContext context, List<ImageData> images) {
     final heights = images
