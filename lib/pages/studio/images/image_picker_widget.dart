@@ -12,16 +12,11 @@ class ImagePickerWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 250,
-      margin: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        border: Border.fromBorderSide(
-          BorderSide(color: Colors.white54, width: 1),
-        ),
         boxShadow: [
           BoxShadow(color: Colors.white12, blurRadius: 8, spreadRadius: 2),
         ],
         borderRadius: AppRadii.allLg,
-        color: AppColors.background,
       ),
       child: Material(
         color: Colors.transparent,

@@ -46,8 +46,8 @@ class ImagePreview extends StatelessWidget {
 
   _closeButton() {
     return Positioned(
-      top: AppSpacing.sm,
-      right: AppSpacing.sm,
+      top: AppSpacing.md,
+      right: AppSpacing.md,
       child: GestureDetector(
         onTap: onRemove,
         child: Container(

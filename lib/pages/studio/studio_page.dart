@@ -31,7 +31,7 @@ class StudioPage extends HookConsumerWidget {
             images: form.images.value,
             onImagesChanged: (images) => form.images.value = images,
           ),
-          Gap(AppSpacing.xl),
+          Gap(AppSpacing.md),
           CustomTextFieldWithoutBorders(
             controller: form.titleController,
             maxLines: 2,

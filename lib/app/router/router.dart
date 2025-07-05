@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/app/router/route_names/auth_route_names.dart';
@@ -26,44 +28,50 @@ GoRouter router(Ref ref) {
     refreshListenable: RouterListener(ref),
     redirect: redirectManager.redirect,
     routes: [
-      GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
       GoRoute(
-        path: AuthRouteNames.login,
-        builder: (_, __) => const LoginPage(),
-      ),
-      GoRoute(
-        path: AuthRouteNames.register,
-        builder: (_, __) => const RegisterPage(),
-      ),
-      ShellRoute(
-        builder: (_, state, child) {
-          final loc = state.matchedLocation;
-          final idx = HomeRouteNames.getPageIndex(loc);
-
-          return HomeShell(
-            index: idx != -1 ? idx : 0, // TODO rework
-            child: child,
-          );
-        },
+        path: '/',
+        builder: (_, __) => const SplashScreen(),
         routes: [
           GoRoute(
-            path: HomeRouteNames.explore,
-            pageBuilder: (_, __) => NoTransitionPage(child: ExplorePage()),
+            path: AuthRouteNames.login,
+            builder: (_, __) => const LoginPage(),
           ),
           GoRoute(
-            path: HomeRouteNames.studio,
-            pageBuilder: (_, __) => const NoTransitionPage(child: StudioPage()),
+            path: AuthRouteNames.register,
+            builder: (_, __) => const RegisterPage(),
+          ),
+          ShellRoute(
+            builder: (_, state, child) {
+              final loc = state.matchedLocation;
+              final idx = HomeRouteNames.getPageIndex(loc);
+              return HomeShell(
+                index: idx != -1 ? idx : 0, // TODO rework
+                child: child,
+              );
+            },
+            routes: [
+              GoRoute(
+                path: HomeRouteNames.explore,
+                pageBuilder: (_, __) => NoTransitionPage(child: ExplorePage()),
+              ),
+              GoRoute(
+                path: HomeRouteNames.studio,
+                pageBuilder: (_, __) =>
+                    const NoTransitionPage(child: StudioPage()),
+              ),
+              GoRoute(
+                path: HomeRouteNames.profile,
+                pageBuilder: (_, __) =>
+                    const NoTransitionPage(child: ProfilePage()),
+              ),
+            ],
           ),
           GoRoute(
-            path: HomeRouteNames.profile,
-            pageBuilder: (_, __) =>
-                const NoTransitionPage(child: ProfilePage()),
+            path: '/post/:id',
+            builder: (_, state) =>
+                PostPage(postId: state.pathParameters['id']!),
           ),
         ],
-      ),
-      GoRoute(
-        path: '/post/:id',
-        builder: (_, state) => PostPage(postId: state.pathParameters['id']!),
       ),
     ],
   );

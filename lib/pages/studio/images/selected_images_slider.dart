@@ -23,31 +23,29 @@ class SelectedImagesSlider extends StatefulWidget {
 }
 
 class _SelectedImagesWidgetState extends State<SelectedImagesSlider> {
-  final PageController _pageController = PageController(viewportFraction: 0.8);
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     final images = widget.images;
 
     return SizedBox(
-      height: 220,
+      height: 250,
       child: PageView.builder(
         controller: _pageController,
         itemCount: images.length + 1,
         itemBuilder: (context, index) {
           if (index == images.length) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: AddMoreButton(onPressed: () => widget.pickImages(context)),
-            );
+            return AddMoreButton(onPressed: () => widget.pickImages(context));
           }
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: ImagePreview(
-              image: images[index],
-              onRemove: () => _removeImage(index),
+          return ImagePreview(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.sizeOf(context).width - 40,
+              maxHeight: MediaQuery.sizeOf(context).height * 0.5
             ),
+            image: images[index],
+            onRemove: () => _removeImage(index),
           );
         },
       ),

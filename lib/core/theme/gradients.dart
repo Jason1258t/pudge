@@ -8,7 +8,7 @@ abstract class AppGradients {
   );
 
   static final instDisabled = LinearGradient(
-      colors: [Color(0xff757575), Color(0xff2d2d2d)],
+      colors: [Color(0xff424242), Color(0xff2d283a)],
       begin: Alignment(-1, -0.2),
       end: Alignment(1, 0.2)
   );
