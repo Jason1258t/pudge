@@ -23,7 +23,7 @@ class UserAvatar extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.grey[500],
+        color: Color(0xffF2E1C5),
       ),
       clipBehavior: Clip.hardEdge,
       child: avatarUrl != null
