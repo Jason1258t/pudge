@@ -21,8 +21,8 @@ class FirebaseAuthService {
   }
 
   Stream<User?> get userChanges => _currentUserSubject;
-  User? get currentUser => _auth.currentUser;
 
+  User? get currentUser => _auth.currentUser;
 
   Future<UserCredential> registerWithEmailAndPassword(
     String email,
@@ -34,11 +34,8 @@ class FirebaseAuthService {
         password: password,
       );
 
-      if (res.user != null) {
-        return res;
-      } else {
-        throw UnknownAuthException();
-      }
+      _verifyResponse(res);
+      return res;
     });
   }
 
@@ -52,11 +49,8 @@ class FirebaseAuthService {
         password: password,
       );
 
-      if (res.user != null) {
-        return res;
-      } else {
-        throw UnknownAuthException();
-      }
+      _verifyResponse(res);
+      return res;
     });
   }
 
@@ -73,16 +67,17 @@ class FirebaseAuthService {
       );
 
       final res = await _auth.signInWithCredential(credential);
-      if (res.user != null) {
-        return res;
-      } else {
-        throw UnknownAuthException();
-      }
+      _verifyResponse(res);
+      return res;
     });
   }
 
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  _verifyResponse(UserCredential res) {
+    if (res.user == null) throw UnknownAuthException();
   }
 
   Future<T> _handleAuthErrors<T>(Future<T> Function() action) async {
