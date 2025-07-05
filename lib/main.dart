@@ -18,6 +18,7 @@ class MyApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
+      theme: ThemeData(appBarTheme: AppBarTheme(centerTitle: false)),
       title: 'Pudge App',
       routerConfig: router,
       debugShowCheckedModeBanner: false,
