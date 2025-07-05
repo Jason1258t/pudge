@@ -9,6 +9,7 @@ import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
 import 'package:pudge/shared/ui/animations/shimmer.dart';
+import 'package:pudge/widgets/image.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PostWidget extends StatelessWidget {
@@ -57,21 +58,15 @@ class PostWidget extends StatelessWidget {
   }
 
   _image() {
-    final image = post.images.first;
-
     return Stack(
       children: [
         ClipRRect(
           borderRadius: AppRadii.allLg,
           child: AspectRatio(
-            aspectRatio: image.aspectRatio,
-            child: CachedNetworkImage(
-              imageUrl: image.originalUrl,
-              fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  CustomShimmer(child: SizedBox.expand()),
-              errorWidget: (context, url, error) =>
-                  const Icon(Icons.broken_image),
+            aspectRatio: post.cover.aspectRatio,
+            child: CustomNetworkImage(
+              url: post.cover.originalUrl,
+              fit: BoxFit.contain,
             ),
           ),
         ),

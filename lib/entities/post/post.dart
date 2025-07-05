@@ -23,3 +23,7 @@ abstract class Post with _$Post {
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 }
+
+extension PostCoverExtension on Post {
+  ImageData get cover => images.first;
+}
