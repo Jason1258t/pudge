@@ -12,7 +12,7 @@ abstract class TestModels {
     avatar: ImageData(
       id: "1",
       originalUrl:
-          "https://i.pinimg.com/736x/e0/12/3d/e0123d96ce6fc5ce8e27a21472b1d125.jpg",
+          "https://i.pinimg.com/736x/ab/66/e5/ab66e5046764e4bbd136d33c4932ce74.jpg",
     ),
   );
   static const images = [

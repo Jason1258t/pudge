@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pudge/core/theme/app_radii.dart';
 import 'package:pudge/core/theme/app_spacing.dart';
 import 'package:pudge/entities/image/image.dart';
+import 'package:pudge/shared/ui/animations/shimmer.dart';
 
 class ProfileImagesGrid extends StatelessWidget {
   const ProfileImagesGrid({super.key, required this.images});
@@ -26,9 +27,8 @@ class ProfileImagesGrid extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: img.originalUrl,
               fit: BoxFit.cover,
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
+              placeholder: (context, url) =>
+                  CustomShimmer(child: SizedBox.expand()),
               errorWidget: (context, url, error) =>
                   const Icon(Icons.broken_image),
             ),

@@ -40,6 +40,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
       backgroundColor: AppColors.background,
       body: CustomScrollView(
         slivers: [
+          UserInfo(TestModels.user),
           // userData.when(
           //   data: (data) => UserInfo(data!),          //   error: (e, st) => SliverToBoxAdapter(child: ErrorWidget(e)),          //   loading: () =>          //       SliverToBoxAdapter(child: CustomCircularProgressIndicator()),          // ),          UserInfo(TestModels.user),
           SliverGap(AppSpacing.lg),

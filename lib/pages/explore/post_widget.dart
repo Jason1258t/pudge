@@ -8,6 +8,8 @@ import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
+import 'package:pudge/shared/ui/animations/shimmer.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PostWidget extends StatelessWidget {
   final Post post;
@@ -66,15 +68,14 @@ class PostWidget extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: image.originalUrl,
               fit: BoxFit.cover,
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
+              placeholder: (context, url) =>
+                  CustomShimmer(child: SizedBox.expand()),
               errorWidget: (context, url, error) =>
                   const Icon(Icons.broken_image),
             ),
           ),
         ),
-        if (post.images.length > 1)...[
+        if (post.images.length > 1) ...[
           Positioned(
             bottom: 4,
             left: 0,
@@ -87,7 +88,7 @@ class PostWidget extends StatelessWidget {
               backgroundColor: Colors.transparent,
             ),
           ),
-        ]
+        ],
       ],
     );
   }
