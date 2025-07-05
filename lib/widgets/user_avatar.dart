@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:gap/gap.dart';
+import 'package:pudge/core/theme/theme.dart';
+import 'package:pudge/core/utils/assets.dart';
 import 'package:pudge/entities/user/user.dart';
 import 'package:pudge/shared/ui/animations/circular_progress_indicator.dart';
 import 'package:pudge/shared/ui/animations/shimmer.dart';
@@ -28,8 +31,17 @@ class UserAvatar extends StatelessWidget {
               imageUrl: avatarUrl,
               fit: BoxFit.cover,
               placeholder: (context, url) => _buildShimmerAvatar(size),
-              errorWidget: (context, url, error) =>
-                  const Icon(Icons.error_outline),
+              errorWidget: (context, url, error) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(Assets.image('error.png'), width: 56, height: 56),
+                  Text(
+                    "Oops...",
+                    style: AppTypography.bodySmall.copyWith(color: Colors.black),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             )
           : const Icon(Icons.person, size: 24, color: Colors.white70),
     );
