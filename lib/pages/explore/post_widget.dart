@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
+import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
 
 class PostWidget extends StatelessWidget {
   final Post post;
@@ -56,18 +57,38 @@ class PostWidget extends StatelessWidget {
   _image() {
     final image = post.images.first;
 
-    return ClipRRect(
-      borderRadius: AppRadii.allLg,
-      child: AspectRatio(
-        aspectRatio: image.aspectRatio,
-        child: CachedNetworkImage(
-          imageUrl: image.originalUrl,
-          fit: BoxFit.cover,
-          placeholder: (context, url) =>
-          const Center(child: CircularProgressIndicator(strokeWidth: 2)),
-          errorWidget: (context, url, error) => const Icon(Icons.broken_image),
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: AppRadii.allLg,
+          child: AspectRatio(
+            aspectRatio: image.aspectRatio,
+            child: CachedNetworkImage(
+              imageUrl: image.originalUrl,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+              errorWidget: (context, url, error) =>
+                  const Icon(Icons.broken_image),
+            ),
+          ),
         ),
-      ),
+        if (post.images.length > 1)...[
+          Positioned(
+            bottom: 4,
+            left: 0,
+            right: 0,
+            child: GalleryDots(
+              length: post.images.length,
+              curr: 0,
+              size: 6,
+              padding: 0,
+              backgroundColor: Colors.transparent,
+            ),
+          ),
+        ]
+      ],
     );
   }
 }

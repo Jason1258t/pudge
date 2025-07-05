@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:pudge/core/theme/app_radii.dart';
 import 'package:pudge/core/theme/colors.dart';
 
 class GalleryDots extends StatelessWidget {
-  const GalleryDots({super.key, required this.length, required this.curr});
+  const GalleryDots({
+    super.key,
+    required this.length,
+    required this.curr,
+    this.size = 8,
+    this.padding = 6, this.backgroundColor,
+  });
 
   final int length;
   final int curr;
+  final double size;
+  final double padding;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: EdgeInsets.all(6),
+        padding: EdgeInsets.all(padding),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
-          color: Colors.black54,
+          borderRadius: AppRadii.full,
+          color: backgroundColor ?? Colors.black54,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -29,8 +39,8 @@ class GalleryDots extends StatelessWidget {
     return List.generate(
       length,
       (index) => Container(
-        width: 8,
-        height: 8,
+        width: size,
+        height: size,
         margin: EdgeInsets.symmetric(horizontal: 2),
         decoration: ShapeDecoration(
           shape: CircleBorder(),
