@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pudge/features/studio/data/studio_api.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:pudge/core/api/api_service.dart';
 import 'package:pudge/core/api/services/token_service/token_service_impl.dart';
@@ -17,4 +18,5 @@ ApiService apiService(Ref ref) {
 void registerApis(ApiService api) {
   api.registerService(AuthApi());
   api.registerService(ProfileApi());
+  api.registerService(StudioApi());
 }
