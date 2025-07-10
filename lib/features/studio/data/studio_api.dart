@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:pudge/core/api/services/dio_service.dart';
 import 'package:pudge/core/api/services/token_service/token_service.dart';
 
-class ProfileApi implements DioService {
+
+class StudioApi implements DioService {
   // ignore: unused_field
   late final Dio _dio;
 
@@ -11,15 +12,7 @@ class ProfileApi implements DioService {
     _dio = dio;
   }
 
-  Future getCurrentUser() async {
-    throw UnimplementedError();
-  }
-
-  Future getSavedPosts() async {
-    throw UnimplementedError();
-  }
-
-  Future getCreatedPosts() async {
+  Future create(FormData data) async {
     throw UnimplementedError();
   }
 }

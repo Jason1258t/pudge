@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/core/utils/assets.dart';
 import 'package:pudge/entities/user/user.dart';
-import 'package:pudge/shared/ui/animations/circular_progress_indicator.dart';
 import 'package:pudge/shared/ui/animations/shimmer.dart';
-import 'package:shimmer/shimmer.dart';
 
 class UserAvatar extends StatelessWidget {
   const UserAvatar({super.key, required this.user, required this.size});

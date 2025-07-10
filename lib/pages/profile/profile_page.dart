@@ -34,6 +34,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final userData = ref.watch(currentProfileNotifierProvider);
 
     return CustomScaffold(

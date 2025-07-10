@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -8,9 +7,7 @@ import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
-import 'package:pudge/shared/ui/animations/shimmer.dart';
 import 'package:pudge/widgets/image.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PostWidget extends StatelessWidget {
   final Post post;

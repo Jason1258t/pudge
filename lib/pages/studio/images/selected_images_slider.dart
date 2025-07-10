@@ -6,16 +6,14 @@ import 'image_preview.dart';
 
 class SelectedImagesSlider extends StatefulWidget {
   final List<XFile> images;
-  final ValueChanged<List<XFile>> onImagesChanged;
   final Function(BuildContext context) pickImages;
-
-
+  final void Function(int index) removeImage;
 
   const SelectedImagesSlider({
     super.key,
     required this.images,
-    required this.onImagesChanged,
     required this.pickImages,
+    required this.removeImage,
   });
 
   @override
@@ -42,18 +40,13 @@ class _SelectedImagesWidgetState extends State<SelectedImagesSlider> {
           return ImagePreview(
             constraints: BoxConstraints(
               maxWidth: MediaQuery.sizeOf(context).width - 40,
-              maxHeight: MediaQuery.sizeOf(context).height * 0.5
+              maxHeight: MediaQuery.sizeOf(context).height * 0.5,
             ),
             image: images[index],
-            onRemove: () => _removeImage(index),
+            onRemove: () => widget.removeImage(index),
           );
         },
       ),
     );
-  }
-
-  void _removeImage(int index) {
-    final newImages = List<XFile>.from(widget.images)..removeAt(index);
-    widget.onImagesChanged(newImages);
   }
 }

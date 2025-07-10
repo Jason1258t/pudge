@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pudge/core/theme/theme.dart';
+import 'package:pudge/features/studio/presentation/studio_notifier.dart';
+import 'package:pudge/pages/studio/pick_images_bottom_sheet.dart';
 import 'package:pudge/shared/ui/buttons/elevated_button.dart';
 import 'package:pudge/shared/ui/inputs/text_field_borders_none.dart';
 import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
@@ -17,6 +20,25 @@ class StudioPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final form = useStudioFormState();
 
+    final studio = ref.watch(studioNotifierProvider.notifier);
+
+    useEffect(() {
+      void updateNotifier() {
+        studio.onTitleChanged(form.titleController.text);
+        studio.onDescriptionChanged(form.descriptionController.text);
+        studio.setImages(form.images.value);
+      }
+
+      form.titleController.addListener(updateNotifier);
+      form.descriptionController.addListener(updateNotifier);
+      form.images.addListener(updateNotifier);
+
+      return () {
+        form.titleController.removeListener(updateNotifier);
+        form.descriptionController.removeListener(updateNotifier);
+        form.images.removeListener(updateNotifier);
+      };
+    }, [form, studio]);
     return CustomScaffold(
       padding: EdgeInsets.all(AppSpacing.lg),
       appBar: AppBar(
@@ -27,9 +49,13 @@ class StudioPage extends HookConsumerWidget {
       body: Column(
         children: [
           ImagesSection(
-            pickImages: (context) => pickImages(context, form),
+            pickImages: (context) => showImagePickDialog(context, form),
             images: form.images.value,
-            onImagesChanged: (images) => form.images.value = images,
+            removeImage: (index) {
+              final images = List<XFile>.from(form.images.value);
+              images.removeAt(index);
+              form.images.value = images;
+            },
           ),
           Gap(AppSpacing.md),
           CustomTextFieldWithoutBorders(
@@ -58,47 +84,14 @@ class StudioPage extends HookConsumerWidget {
     );
   }
 
-  Future<void> pickImages(BuildContext context, StudioFormState form) async {
-    final picker = ImagePicker();
+  Future<void> showImagePickDialog(
+    BuildContext context,
+    StudioFormState form,
+  ) async {
     showModalBottomSheet(
       context: context,
       backgroundColor: AppColors.navigation,
-      builder: (context) => SafeArea(
-        child: Wrap(
-          children: [
-            ListTile(
-              leading: const Icon(
-                Icons.photo_library,
-                color: AppColors.onBackground,
-              ),
-              title: Text('Pick from gallery', style: AppTypography.bodySmall),
-              onTap: () async {
-                Navigator.pop(context);
-                final images = await picker.pickMultiImage();
-                if (images.isNotEmpty) {
-                  form.images.value = images;
-                }
-              },
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.camera_alt,
-                color: AppColors.onBackground,
-              ),
-              title: Text('Take photo', style: AppTypography.bodySmall),
-              onTap: () async {
-                Navigator.pop(context);
-                final image = await picker.pickImage(
-                  source: ImageSource.camera,
-                );
-                if (image != null) {
-                  form.images.value = [image];
-                }
-              },
-            ),
-          ],
-        ),
-      ),
+      builder: (context) => PickImagesBottomSheet(form: form),
     );
   }
 }
