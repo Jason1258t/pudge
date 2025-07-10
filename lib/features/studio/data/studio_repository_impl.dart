@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pudge/app/api_registery.dart';
+import 'package:pudge/app/api_service_provider.dart';
 import 'package:pudge/features/studio/data/studio_api.dart';
 import 'package:pudge/features/studio/domain/studio_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

@@ -6,7 +6,7 @@ import 'package:pudge/core/api/services/token_service/token_service_impl.dart';
 import 'package:pudge/features/auth/data/auth_api.dart';
 import 'package:pudge/features/profile/data/profile_api.dart';
 
-part 'api_registery.g.dart';
+part 'api_service_provider.g.dart';
 
 @riverpod
 ApiService apiService(Ref ref) {

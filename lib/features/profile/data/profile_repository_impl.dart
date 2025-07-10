@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pudge/app/api_registery.dart';
+import 'package:pudge/app/api_service_provider.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/entities/user/user.dart';
 import 'package:pudge/features/profile/data/profile_api.dart';

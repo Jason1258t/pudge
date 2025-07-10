@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pudge/app/api_registery.dart';
+import 'package:pudge/app/api_service_provider.dart';
 import 'package:pudge/core/firebase/auth/firebase_auth_service.dart';
 import 'package:pudge/features/auth/data/auth_api.dart';
 import 'package:pudge/features/auth/domain/app_authorization_state.dart';
