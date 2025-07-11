@@ -31,7 +31,7 @@ class UserExpanded extends StatelessWidget {
         ),
         Gap(AppSpacing.lg, crossAxisExtent: double.infinity),
         Text(
-          user.username ?? 'undefined',
+          user.username,
           style: AppTypography.titleLarge,
           textAlign: TextAlign.center,
         ),

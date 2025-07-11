@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/core/utils/assets.dart';
 import 'package:pudge/entities/post/post.dart';
+import 'package:pudge/pages/comments/comments_page.dart';
 import 'package:pudge/shared/ui/icon/icon.dart';
 
 import 'share_bottom_sheet.dart';
@@ -24,9 +25,12 @@ class PostActionsRow extends StatelessWidget {
         Gap(AppSpacing.sm),
         Text(post.likesCount.toString(), style: AppTypography.bodyRegular),
         Gap(AppSpacing.md),
-        CustomIcon.asset(
-          Assets.icon('comments.svg'),
-          color: AppColors.onBackground,
+        GestureDetector(
+          onTap: () => _showBottomSheet(CommentsPage(), context),
+          child: CustomIcon.asset(
+            Assets.icon('comments.svg'),
+            color: AppColors.onBackground,
+          ),
         ),
         Gap(AppSpacing.sm),
         Text(post.commentsCount.toString(), style: AppTypography.bodyRegular),

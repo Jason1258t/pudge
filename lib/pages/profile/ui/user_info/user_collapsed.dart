@@ -22,7 +22,7 @@ class UserCollapsed extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(user.username ?? 'error', style: AppTypography.bodyLarge),
+              Text(user.username, style: AppTypography.bodyLarge),
               Text(
                 "creator",
                 style: AppTypography.bodySmall.copyWith(color: Colors.white60),

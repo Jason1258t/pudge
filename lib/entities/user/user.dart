@@ -9,7 +9,7 @@ part 'user.g.dart';
 abstract class User with _$User {
   const factory User({
     required String id,
-    String? username,
+    required String username,
     String? bio,
     ImageData? avatar,
   }) = _User;

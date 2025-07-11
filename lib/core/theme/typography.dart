@@ -61,14 +61,34 @@ abstract class AppTypography {
     color: AppColors.onBackground,
   );
 
+  static final TextStyle caption = _baseStyle.copyWith(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: AppColors.onBackground.withAlpha(180),
+  );
+
+  static final TextStyle labelSmall = _baseStyle.copyWith(
+    fontSize: 10,
+    fontWeight: FontWeight.w500,
+    color: AppColors.onBackground.withAlpha(160),
+  );
+
+  static final TextStyle bodyXSmall = _baseStyle.copyWith(
+    fontSize: 11,
+    fontWeight: FontWeight.w300,
+    color: AppColors.onBackground.withAlpha(140),
+  );
+
+
   static TextTheme buildTextTheme() {
     return _baseTextTheme.copyWith(
       displayLarge: displayLarge,
-      // headlineMedium: AppTextStyles.headlineMedium, // если есть
       bodySmall: bodySmallLight,
       labelLarge: buttonLabel,
       bodyMedium: bodyRegular,
       titleMedium: titleMedium,
+      labelSmall: labelSmall,
     );
   }
+
 }

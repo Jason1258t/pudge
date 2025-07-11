@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:pudge/entities/comment/comment.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/entities/user/user.dart';
@@ -15,6 +16,51 @@ abstract class TestModels {
           "https://i.pinimg.com/736x/ab/66/e5/ab66e5046764e4bbd136d33c4932ce74.jpg",
     ),
   );
+
+  static final List<User> users = [
+    User(
+      id: 'user_001',
+      username: 'alina_fox',
+      bio: 'Люблю кодить и кофе',
+      avatar: images[2],
+    ),
+    User(id: 'user_002', username: 'tech_guru', bio: null, avatar: null),
+    User(
+      id: 'user_003',
+      username: 'nightowl',
+      bio: 'Работаю только по ночам',
+      avatar: images[0],
+    ),
+  ];
+
+  static final List<Comment> comments = [
+    Comment(
+      id: 'comment_001',
+      content:
+          'Отличная статья! Очень полезно. Отличная статья! Очень полезно. Отличная статья! Очень полезно. Отличная статья! Очень полезно. Отличная статья! Очень полезно.',
+      author: users[0],
+      createAt: DateTime.now().subtract(Duration(minutes: 5)),
+      likesCount: 12,
+      attachments: [],
+    ),
+    Comment(
+      id: 'comment_002',
+      content: 'Не согласен с последним пунктом.',
+      author: users[1],
+      createAt: DateTime.now().subtract(Duration(hours: 2)),
+      likesCount: 3,
+      attachments: [images[1]],
+    ),
+    Comment(
+      id: 'comment_003',
+      content: 'Вот ссылка на документацию: https://dart.dev',
+      author: users[2],
+      createAt: DateTime.now().subtract(Duration(days: 1)),
+      likesCount: 25,
+      attachments: null,
+    ),
+  ];
+
   static const images = [
     ImageData(
       id: '1',
