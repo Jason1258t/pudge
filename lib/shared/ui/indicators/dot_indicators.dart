@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pudge/core/theme/app_radii.dart';
 import 'package:pudge/core/theme/colors.dart';
 
-class GalleryDots extends StatelessWidget {
-  const GalleryDots({
+class DotIndicators extends StatelessWidget {
+  const DotIndicators({
     super.key,
     required this.length,
     required this.curr,
@@ -38,7 +38,7 @@ class GalleryDots extends StatelessWidget {
   _buildDots() {
     return List.generate(
       length,
-      (index) => Container(
+          (index) => Container(
         width: size,
         height: size,
         margin: EdgeInsets.symmetric(horizontal: 2),

@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/core/utils/utils.dart';
 import 'package:pudge/entities/post/post.dart';
-import 'package:pudge/pages/post/actions/row_text_button.dart';
+import 'package:pudge/shared/ui/buttons/row_text_button.dart';
 import 'package:pudge/shared/ui/icon/icon.dart';
 import 'package:pudge/widgets/image.dart';
 

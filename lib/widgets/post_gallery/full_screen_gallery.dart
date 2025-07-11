@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:pudge/core/theme/app_spacing.dart';
 import 'package:pudge/entities/image/image.dart';
-import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
 import 'package:pudge/shared/ui/buttons/back_button.dart';
+import 'package:pudge/shared/ui/indicators/dot_indicators.dart';
 import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -73,7 +73,7 @@ class _FullScreenGalleryState extends State<FullScreenGallery> {
               bottom: MediaQuery.paddingOf(context).bottom + 20,
               left: 0,
               right: 0,
-              child: GalleryDots(length: widget.images.length, curr: currPage),
+              child: DotIndicators(length: widget.images.length, curr: currPage),
             ),
           ],
         ],

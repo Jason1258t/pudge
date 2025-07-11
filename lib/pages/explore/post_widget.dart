@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
-import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
+import 'package:pudge/shared/ui/indicators/dot_indicators.dart';
 import 'package:pudge/widgets/image.dart';
 
 class PostWidget extends StatelessWidget {
@@ -72,7 +72,7 @@ class PostWidget extends StatelessWidget {
             bottom: 4,
             left: 0,
             right: 0,
-            child: GalleryDots(
+            child: DotIndicators(
               length: post.images.length,
               curr: 0,
               size: 6,

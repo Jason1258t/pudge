@@ -5,10 +5,10 @@ import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/pages/explore/post_widget.dart';
 import 'package:pudge/pages/post/actions/actions_row.dart';
-import 'package:pudge/pages/post/post_gallery/post_gallery.dart';
 import 'package:pudge/shared/ui/buttons/back_button.dart';
 import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
 import 'package:pudge/shared/utils/test_models.dart';
+import 'package:pudge/widgets/post_gallery/post_gallery.dart';
 
 class PostPage extends StatelessWidget {
   PostPage({super.key, required this.postId}) {

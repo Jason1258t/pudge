@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:pudge/core/theme/colors.dart';
 import 'package:pudge/entities/image/image.dart';
-import 'package:pudge/pages/post/post_gallery/gallery_dots.dart';
+import 'package:pudge/shared/ui/indicators/dot_indicators.dart';
 
 import 'full_screen_gallery.dart';
 import 'post_image.dart';
@@ -70,7 +70,7 @@ class _PostGalleryState extends State<PostGallery> {
             bottom: 16,
             left: 0,
             right: 0,
-            child: GalleryDots(length: widget.images.length, curr: idx),
+            child: DotIndicators(length: widget.images.length, curr: idx),
           ),
         ],
       ],
