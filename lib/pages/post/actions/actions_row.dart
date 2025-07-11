@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/core/utils/assets.dart';
 import 'package:pudge/entities/post/post.dart';
+import 'package:pudge/shared/ui/icon/icon.dart';
 
 import 'share_bottom_sheet.dart';
 import 'post_actions_bottom_sheet.dart';
@@ -17,41 +18,36 @@ class PostActionsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
+        CustomIcon.icon(
           post.isLiked ? Icons.favorite : Icons.favorite_border,
-          size: 24,
           color: post.isLiked ? AppColors.red : AppColors.onBackground,
         ),
         Gap(AppSpacing.sm),
         Text(post.likesCount.toString(), style: AppTypography.bodyRegular),
         Gap(AppSpacing.md),
-        SvgPicture.asset(
+        CustomIcon.asset(
           Assets.icon('comments.svg'),
-          width: 24,
-          height: 24,
-          colorFilter: ColorFilter.mode(
-            AppColors.onBackground,
-            BlendMode.srcIn,
-          ),
+          color: AppColors.onBackground,
         ),
         Gap(AppSpacing.sm),
         Text(post.commentsCount.toString(), style: AppTypography.bodyRegular),
         Gap(AppSpacing.md),
         GestureDetector(
           onTap: () => _showBottomSheet(ShareBottomSheet(post: post), context),
-          child: Icon(
+          child: CustomIcon.icon(
             Icons.share_outlined,
-            size: 24,
             color: AppColors.onBackground,
           ),
         ),
         Gap(AppSpacing.md),
         GestureDetector(
-          onTap: () =>
-              _showBottomSheet(PostActionsBottomSheet(post: post), context, showDragHandle: false),
-          child: Icon(
+          onTap: () => _showBottomSheet(
+            PostActionsBottomSheet(post: post),
+            context,
+            showDragHandle: false,
+          ),
+          child: CustomIcon.icon(
             Icons.more_horiz,
-            size: 24,
             color: AppColors.onBackground,
           ),
         ),

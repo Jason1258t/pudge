@@ -7,6 +7,7 @@ import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/core/utils/utils.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/pages/post/actions/row_text_button.dart';
+import 'package:pudge/shared/ui/icon/icon.dart';
 import 'package:pudge/widgets/image.dart';
 
 class PostActionsBottomSheet extends StatelessWidget {
@@ -44,9 +45,8 @@ class PostActionsBottomSheet extends StatelessWidget {
                 RowTextButton(
                   text: "Copy link",
                   onPressed: () {},
-                  icon: Icon(
+                  icon: CustomIcon.icon(
                     Icons.share_outlined,
-                    size: 24,
                     color: AppColors.onBackground,
                   ),
                 ),
@@ -54,31 +54,29 @@ class PostActionsBottomSheet extends StatelessWidget {
                 RowTextButton(
                   text: "Hide post",
                   onPressed: () {},
-                  icon: SvgPicture.asset(
+                  icon: CustomIcon.asset(
                     Assets.icon('eye-slash.svg'),
-                    width: 24,
-                    colorFilter: svgColor(AppColors.onBackground),
+                    color: AppColors.onBackground,
                   ),
                 ),
                 Gap(AppSpacing.md),
                 RowTextButton(
                   text: "Download image",
                   onPressed: () {},
-                  icon: SvgPicture.asset(
+                  icon: CustomIcon.asset(
                     Assets.icon('download.svg'),
-                    width: 24,
-                    colorFilter: svgColor(AppColors.onBackground),
+                    color: AppColors.onBackground,
                   ),
                 ),
                 Gap(AppSpacing.md),
                 RowTextButton(
                   text: "Report this post",
                   onPressed: () {},
-                  description: "If this post contains harmful, offensive or inappropriate content",
-                  icon: SvgPicture.asset(
+                  description:
+                      "If this post contains harmful, offensive or inappropriate content",
+                  icon: CustomIcon.asset(
                     Assets.icon('flag.svg'),
-                    width: 24,
-                    colorFilter: svgColor(AppColors.onBackground),
+                    color: AppColors.onBackground,
                   ),
                 ),
                 Gap(AppSpacing.xxl),
@@ -100,10 +98,7 @@ class PostActionsBottomSheet extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: AppRadii.allMd,
-          onTap: () {
-            log("close");
-            Navigator.pop(context);
-          },
+          onTap: () => Navigator.pop(context),
           child: SizedBox(
             height: 40,
             width: 40,
