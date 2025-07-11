@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/pages/explore/post_widget.dart';
-import 'package:pudge/pages/post/actions_row.dart';
+import 'package:pudge/pages/post/actions/actions_row.dart';
 import 'package:pudge/pages/post/post_gallery/post_gallery.dart';
 import 'package:pudge/shared/ui/buttons/back_button.dart';
 import 'package:pudge/shared/ui/scaffold/custom_scaffold.dart';
@@ -18,7 +18,6 @@ class PostPage extends StatelessWidget {
   final String postId;
 
   late final Post post;
-
   final samePosts = TestModels.posts;
 
   @override

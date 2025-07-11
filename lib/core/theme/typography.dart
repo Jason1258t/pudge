@@ -56,7 +56,7 @@ abstract class AppTypography {
   );
 
   static final TextStyle titleMedium = _baseStyle.copyWith(
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: FontWeight.w500, // Medium
     color: AppColors.onBackground,
   );
