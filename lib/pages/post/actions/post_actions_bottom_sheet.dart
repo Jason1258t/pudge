@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/core/utils/utils.dart';
@@ -25,7 +22,7 @@ class PostActionsBottomSheet extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -41,7 +38,7 @@ class PostActionsBottomSheet extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Gap(AppSpacing.lg),
+                Gap(AppSpacing.md),
                 RowTextButton(
                   text: "Copy link",
                   onPressed: () {},
@@ -50,7 +47,6 @@ class PostActionsBottomSheet extends StatelessWidget {
                     color: AppColors.onBackground,
                   ),
                 ),
-                Gap(AppSpacing.md),
                 RowTextButton(
                   text: "Hide post",
                   onPressed: () {},
@@ -59,7 +55,6 @@ class PostActionsBottomSheet extends StatelessWidget {
                     color: AppColors.onBackground,
                   ),
                 ),
-                Gap(AppSpacing.md),
                 RowTextButton(
                   text: "Download image",
                   onPressed: () {},
@@ -68,7 +63,6 @@ class PostActionsBottomSheet extends StatelessWidget {
                     color: AppColors.onBackground,
                   ),
                 ),
-                Gap(AppSpacing.md),
                 RowTextButton(
                   text: "Report this post",
                   onPressed: () {},

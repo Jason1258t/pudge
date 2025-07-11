@@ -20,32 +20,35 @@ class RowTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              icon,
-              Gap(AppSpacing.md),
-              Expanded(
-                child: Text(
-                  text,
-                  style: AppTypography.titleMedium.copyWith(fontWeight: FontWeight.w600),
-                  maxLines: 1,
-                  overflow: TextOverflow.clip,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                icon,
+                Gap(AppSpacing.md),
+                Expanded(
+                  child: Text(
+                    text,
+                    style: AppTypography.titleMedium.copyWith(fontWeight: FontWeight.w600),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          if (description != null) ...[
-            Gap(AppSpacing.xs),
-            Padding(
-              padding: const EdgeInsets.only(left: 24 + AppSpacing.md),
-              child: Text(description!, style: AppTypography.bodyRegular),
-            )
-          ]
-        ],
+              ],
+            ),
+            if (description != null) ...[
+              Gap(AppSpacing.xs),
+              Padding(
+                padding: const EdgeInsets.only(left: 24 + AppSpacing.md),
+                child: Text(description!, style: AppTypography.bodyRegular),
+              )
+            ]
+          ],
+        ),
       ),
     );
   }
