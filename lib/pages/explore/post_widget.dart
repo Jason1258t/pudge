@@ -9,16 +9,30 @@ import 'package:pudge/entities/post/post.dart';
 import 'package:pudge/shared/ui/indicators/dot_indicators.dart';
 import 'package:pudge/widgets/image.dart';
 
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
   final Post post;
 
   const PostWidget({super.key, required this.post});
 
   @override
+  State<PostWidget> createState() => _PostWidgetState();
+}
+
+class _PostWidgetState extends State<PostWidget> {
+  late OverlayEntry _overlayEntry;
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPressDown: (details) {
+        log("Image long pressed at ${details.globalPosition}");
+        _showOverlay(context);
+      },
+      onLongPressEnd: (details) async {
+        _removeOverlay();
+      },
       onTap: () {
-        context.push('/post/${post.id}');
+        context.push('/post/${widget.post.id}');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +43,7 @@ class PostWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  post.title,
+                  widget.post.title,
                   style: AppTypography.bodySmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -54,26 +68,61 @@ class PostWidget extends StatelessWidget {
     );
   }
 
+  void _removeOverlay() {
+    _overlayEntry.remove();
+  }
+
+  void _showOverlay(BuildContext context) {
+    final overlay = Overlay.of(context);
+    final offset = _getImagePosition();
+    final size = _getPostSize();
+
+    _overlayEntry = OverlayEntry(
+      builder: (context) => Stack(
+        children: [
+          Container(color: Colors.black54),
+          Positioned(
+            top: offset.dy,
+            left: offset.dx,
+            child: SizedBox(width: size.width, child: _image()),
+          ),
+        ],
+      ),
+    );
+
+    overlay.insert(_overlayEntry);
+  }
+
+  Offset _getImagePosition() {
+    final renderBox = context.findRenderObject() as RenderBox;
+    return renderBox.localToGlobal(Offset.zero);
+  }
+
+  Size _getPostSize() {
+    final renderBox = context.findRenderObject() as RenderBox;
+    return renderBox.size;
+  }
+
   _image() {
     return Stack(
       children: [
         ClipRRect(
           borderRadius: AppRadii.allLg,
           child: AspectRatio(
-            aspectRatio: post.cover.aspectRatio,
+            aspectRatio: widget.post.cover.aspectRatio,
             child: CustomNetworkImage(
-              url: post.cover.originalUrl,
+              url: widget.post.cover.originalUrl,
               fit: BoxFit.contain,
             ),
           ),
         ),
-        if (post.images.length > 1) ...[
+        if (widget.post.images.length > 1) ...[
           Positioned(
             bottom: 4,
             left: 0,
             right: 0,
             child: DotIndicators(
-              length: post.images.length,
+              length: widget.post.images.length,
               curr: 0,
               size: 6,
               padding: 0,
