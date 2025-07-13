@@ -1,11 +1,14 @@
 import 'dart:developer';
+import 'dart:math' hide log;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
+import 'package:pudge/pages/explore/post_overlay.dart';
 import 'package:pudge/shared/ui/indicators/dot_indicators.dart';
 import 'package:pudge/widgets/image.dart';
 
@@ -24,14 +27,17 @@ class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPressDown: (details) {
-        log("Image long pressed at ${details.globalPosition}");
-        _showOverlay(context);
+      onLongPressDown: (d) {
+        _showOverlay(context, d);
       },
       onLongPressEnd: (details) async {
         _removeOverlay();
       },
+      onLongPressCancel: () {
+        if (_overlayEntry.mounted) _removeOverlay();
+      },
       onTap: () {
+        if (_overlayEntry.mounted) return;
         context.push('/post/${widget.post.id}');
       },
       child: Column(
@@ -68,25 +74,19 @@ class _PostWidgetState extends State<PostWidget> {
     );
   }
 
-  void _removeOverlay() {
-    _overlayEntry.remove();
-  }
+  void _removeOverlay() => _overlayEntry.remove();
 
-  void _showOverlay(BuildContext context) {
+  void _showOverlay(BuildContext context, LongPressDownDetails details) {
     final overlay = Overlay.of(context);
     final offset = _getImagePosition();
     final size = _getPostSize();
 
     _overlayEntry = OverlayEntry(
-      builder: (context) => Stack(
-        children: [
-          Container(color: Colors.black54),
-          Positioned(
-            top: offset.dy,
-            left: offset.dx,
-            child: SizedBox(width: size.width, child: _image()),
-          ),
-        ],
+      builder: (context) => PostOverlay(
+        image: _image(),
+        size: size,
+        globalPosition: details.globalPosition,
+        imageOffset: offset,
       ),
     );
 
