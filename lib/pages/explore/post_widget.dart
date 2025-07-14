@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
-import 'package:pudge/pages/explore/post_overlay.dart';
+import 'package:pudge/pages/explore/post_overlay/post_overlay.dart';
 import 'package:pudge/shared/ui/indicators/dot_indicators.dart';
 import 'package:pudge/widgets/image.dart';
 
