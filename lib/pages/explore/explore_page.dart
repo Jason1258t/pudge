@@ -13,32 +13,35 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        title: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(width: 2, color: AppColors.onBackground),
+    return PopScope(
+      canPop: false,
+      child: CustomScaffold(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
+          title: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(width: 2, color: AppColors.onBackground),
+              ),
             ),
-          ),
-          child: Text(
-            "For you",
-            style: AppTypography.titleLarge.copyWith(
-              decoration: TextDecoration.underline,
+            child: Text(
+              "For you",
+              style: AppTypography.titleLarge.copyWith(
+                decoration: TextDecoration.underline,
+              ),
             ),
           ),
         ),
-      ),
-      body: MasonryGridView.count(
-        physics: BouncingScrollPhysics(),
-        crossAxisCount: 2,
-        itemBuilder: (_, i) => PostWidget(post: posts[i]),
-        itemCount: posts.length,
-        mainAxisSpacing: AppSpacing.xs,
-        crossAxisSpacing: AppSpacing.sm,
+        body: MasonryGridView.count(
+          physics: BouncingScrollPhysics(),
+          crossAxisCount: 2,
+          itemBuilder: (_, i) => PostWidget(post: posts[i]),
+          itemCount: posts.length,
+          mainAxisSpacing: AppSpacing.xs,
+          crossAxisSpacing: AppSpacing.sm,
+        ),
       ),
     );
   }

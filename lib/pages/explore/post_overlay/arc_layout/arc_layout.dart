@@ -4,12 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 part 'render_arc_layout.dart';
-
-enum ArcDirection { clockwise, counterClockwise }
-
-extension ArcDirectionToInt on ArcDirection {
-  int toInt() => this == ArcDirection.clockwise ? 1 : -1;
-}
+part 'arc_direction.dart';
 
 class ArcLayout extends MultiChildRenderObjectWidget {
   const ArcLayout({

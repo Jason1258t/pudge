@@ -1,29 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:pudge/core/theme/app_radii.dart';
-import 'package:pudge/core/theme/colors.dart';
 
-class RoundedIconButton extends StatelessWidget {
+class RoundedIconButton extends StatefulWidget {
   const RoundedIconButton({
     super.key,
     required this.onPressed,
     required this.icon,
+    this.backgroundColor = Colors.white,
+    this.size = 48,
   });
 
   final VoidCallback onPressed;
   final Widget icon;
+  final Color backgroundColor;
+  final double size;
 
   @override
+  State<RoundedIconButton> createState() => _RoundedIconButtonState();
+}
+
+class _RoundedIconButtonState extends State<RoundedIconButton> {
+  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: AppRadii.full,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: widget.onPressed,
+        child: Ink(
+          width: widget.size,
+          height: widget.size,
+          decoration: BoxDecoration(
+            color: widget.backgroundColor,
+            borderRadius: AppRadii.full,
+          ),
+          child: Center(child: widget.icon),
         ),
-        child: Center(child: icon),
       ),
     );
   }

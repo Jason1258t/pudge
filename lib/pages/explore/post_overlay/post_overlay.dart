@@ -1,40 +1,59 @@
-import 'dart:math';
-
+import 'dart:developer';
+import 'dart:math' hide log;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/core/theme/app_radii.dart';
+import 'package:pudge/features/post_overlay/button_data.dart';
+import 'package:pudge/features/post_overlay/post_overlay_notifier.dart';
 import 'package:pudge/pages/explore/post_overlay/arc_layout/arc_layout.dart';
 import 'package:pudge/pages/explore/post_overlay/rounded_icon_button.dart';
 import 'package:pudge/shared/ui/icon/icon.dart';
 
-class PostOverlay extends StatefulWidget {
+class PostOverlay extends ConsumerStatefulWidget {
   const PostOverlay({
     super.key,
+    required this.buttons,
     required this.image,
     required this.size,
-    required this.globalPosition,
+    required this.center,
     required this.imageOffset,
   });
 
   final Widget image;
   final Size size;
-  final Offset globalPosition;
+  final Offset center;
   final Offset imageOffset;
+  final List<ButtonData> buttons;
 
   @override
-  State<PostOverlay> createState() => _PostOverlayState();
+  ConsumerState<PostOverlay> createState() => _PostOverlayState();
 }
 
-class _PostOverlayState extends State<PostOverlay>
+class _PostOverlayState extends ConsumerState<PostOverlay>
     with SingleTickerProviderStateMixin {
   static const radius = 100.0;
   static const padding = 32;
   static const touchRadius = 25;
+  static const itemSpacing = pi / 5;
+  static const touchSpread = 36;
 
   late final AnimationController _controller;
   late final Animation<double> _radiusAnimation;
+  late double angle;
 
   @override
   void initState() {
+    _initAnimation();
+    _controller.addListener(() {
+      if (_controller.isCompleted) {
+        _initButtons();
+      }
+    });
+    super.initState();
+  }
+
+  void _initAnimation() {
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
@@ -45,7 +64,21 @@ class _PostOverlayState extends State<PostOverlay>
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
 
     _controller.forward();
-    super.initState();
+  }
+
+  void _initButtons() {
+    final notifier = ref.watch(postOverlayStateNotifierProvider.notifier);
+
+    final buttons = <ButtonData>[];
+
+    for (int i = 0; i < widget.buttons.length; i++) {
+      final buttonPosition = _getButtonPosition(i, -angle, widget.center);
+      buttons.add(widget.buttons[i].copyWith(position: buttonPosition));
+    }
+
+    notifier.setButtons(buttons);
+
+    notifier.setPointerMove(onPointerMove);
   }
 
   @override
@@ -54,12 +87,38 @@ class _PostOverlayState extends State<PostOverlay>
     super.dispose();
   }
 
+  void onPointerMove(LongPressMoveUpdateDetails event) {
+    final state = ref.watch(postOverlayStateNotifierProvider);
+
+    final currentPosition = event.globalPosition;
+    int? newHoveredIndex;
+
+    for (int i = 0; i < state.buttons.length; i++) {
+      final buttonPosition = state.buttons.map((e) => e.position!).toList()[i];
+      final distance = (currentPosition - buttonPosition).distance;
+
+      if (distance <= touchSpread) {
+        newHoveredIndex = i;
+        log('found hovered button $i');
+        break;
+      }
+    }
+
+    if (newHoveredIndex != state.hoveredButtonIndex) {
+      HapticFeedback.lightImpact();
+      ref
+          .watch(postOverlayStateNotifierProvider.notifier)
+          .setHoveredButton(newHoveredIndex);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final angle = _getArcStartAngle(widget.globalPosition);
+    final state = ref.watch(postOverlayStateNotifierProvider);
+    angle = _getArcStartAngle(widget.center);
     return Stack(
       children: [
-        Container(color: Colors.black54),
+        Container(color: Colors.black.withAlpha((255 * 0.7).floor())),
         Positioned(
           top: widget.imageOffset.dy,
           left: widget.imageOffset.dx,
@@ -70,48 +129,34 @@ class _PostOverlayState extends State<PostOverlay>
           builder: (context, _) {
             final radius = _radiusAnimation.value;
             return Positioned(
-              left: widget.globalPosition.dx - radius - padding,
-              top: widget.globalPosition.dy - radius - padding,
+              left: widget.center.dx - radius - padding,
+              top: widget.center.dy - radius - padding,
               width: radius * 2 + padding * 2,
               height: radius * 2 + padding * 2,
               child: ArcLayout(
                 center: Offset(radius + padding, radius + padding),
                 radius: radius,
-                itemSpacing: pi / 5,
+                itemSpacing: itemSpacing,
                 startAngle: -angle,
-                children: [
-                  RoundedIconButton(
-                    onPressed: () {},
-                    icon: CustomIcon.icon(
-                      Icons.bookmark_add_outlined,
+                children: List.generate(
+                  widget.buttons.length,
+                  (i) => AnimatedScale(
+                    duration: const Duration(milliseconds: 150),
+                    scale: i == state.hoveredButtonIndex ? 1.2 : 1,
+                    child: RoundedIconButton(
+                      onPressed: widget.buttons[i].callback,
+                      icon: CustomIcon.icon(widget.buttons[i].icon),
+                      backgroundColor: i == state.hoveredButtonIndex ? Colors.deepPurple[300]! : Colors.white,
                     ),
                   ),
-                  RoundedIconButton(
-                    onPressed: () {},
-                    icon: CustomIcon.icon(
-                      Icons.share_outlined,
-                    ),
-                  ),
-                  RoundedIconButton(
-                    onPressed: () {},
-                    icon: CustomIcon.icon(
-                      Icons.telegram,
-                    ),
-                  ),
-                  RoundedIconButton(
-                    onPressed: () {},
-                    icon: CustomIcon.icon(
-                      Icons.favorite_border_rounded,
-                    ),
-                  ),
-                ],
+                ),
               ),
             );
           },
         ),
         Positioned(
-          left: widget.globalPosition.dx - touchRadius,
-          top: widget.globalPosition.dy - touchRadius,
+          left: widget.center.dx - touchRadius,
+          top: widget.center.dy - touchRadius,
           child: Container(
             width: touchRadius * 2,
             height: touchRadius * 2,
@@ -125,6 +170,15 @@ class _PostOverlayState extends State<PostOverlay>
         ),
       ],
     );
+  }
+
+  Offset _getButtonPosition(int index, double startAngle, Offset center) {
+    final angle = startAngle + itemSpacing * index;
+    final buttonCenter = Offset(
+      center.dx + cos(angle) * radius,
+      center.dy + sin(angle) * radius,
+    );
+    return buttonCenter;
   }
 
   double _getArcStartAngle(Offset globalPosition, {double arcLength = pi / 2}) {
