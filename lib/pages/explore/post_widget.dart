@@ -7,9 +7,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/core/theme/theme.dart';
 import 'package:pudge/entities/image/image.dart';
 import 'package:pudge/entities/post/post.dart';
+import 'package:pudge/features/post_overlay/arc_menu/arc_menu_options.dart';
+import 'package:pudge/features/post_overlay/arc_menu/arc_menu_state.dart';
 import 'package:pudge/features/post_overlay/button_data.dart';
 import 'package:pudge/features/post_overlay/post_overlay_notifier.dart';
-import 'package:pudge/features/post_overlay/post_overlay_state.dart';
 import 'package:pudge/pages/explore/post_overlay/post_overlay.dart';
 import 'package:pudge/shared/ui/indicators/dot_indicators.dart';
 import 'package:pudge/widgets/image.dart';
@@ -67,8 +68,8 @@ class PostWidget extends ConsumerWidget {
             _showOverlay(context, d, notifier);
           },
           onLongPressEnd: (details) async {
-            if (state.hoveredButtonIndex != null) {
-              state.hoveredButton.callback();
+            if (state.menuState.hoveredButtonIndex != null) {
+              state.menuState.hoveredButton.callback();
             }
             _removeOverlay(notifier);
           },
@@ -149,15 +150,13 @@ class PostWidget extends ConsumerWidget {
     final size = _getPostSize(context);
 
     final overlayEntry = OverlayEntry(
-      builder: (context) => PostOverlay(
-        image: _image(),
-        buttons: overlayButtons,
-        size: size,
-        center: details.globalPosition,
-        imageOffset: offset,
-      ),
+      builder: (context) =>
+          PostOverlay(image: _image(), size: size, imageOffset: offset),
     );
 
+    final options = ArcMenuOptions(center: details.globalPosition);
+    notifier.setOptions(options);
+    notifier.setButtons(overlayButtons, context);
     notifier.setOverlay(overlayEntry);
 
     overlay.insert(overlayEntry);

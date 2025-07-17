@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pudge/features/post_overlay/button_data.dart';
+import 'package:pudge/pages/explore/post_overlay/arc_layout/arc_layout.dart';
 
 int? touchedButton(
   List<ButtonData> buttons,
@@ -24,11 +25,12 @@ Offset getButtonPosition({
   required Offset center,
   required double radius,
   required double spacing,
+  ArcDirection direction = ArcDirection.clockwise,
 }) {
   final angle = startAngle + spacing * index;
   final buttonCenter = Offset(
-    center.dx + cos(angle) * radius,
-    center.dy + sin(angle) * radius,
+    center.dx + cos(angle * direction.toInt()) * radius,
+    center.dy + sin(angle * direction.toInt()) * radius,
   );
   return buttonCenter;
 }

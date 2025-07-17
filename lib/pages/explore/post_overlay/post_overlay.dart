@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pudge/core/theme/app_radii.dart';
 import 'package:pudge/features/post_overlay/arc_menu/arc_menu.dart';
-import 'package:pudge/features/post_overlay/arc_menu/arc_menu_options.dart';
-import 'package:pudge/features/post_overlay/button_data.dart';
+import 'package:pudge/features/post_overlay/post_overlay_notifier.dart';
 
-class PostOverlay extends StatelessWidget {
+class PostOverlay extends ConsumerWidget {
   const PostOverlay({
     super.key,
-    required this.buttons,
     required this.image,
     required this.size,
-    required this.center,
     required this.imageOffset,
     this.touchRadius = 25,
   });
 
   final Widget image;
   final Size size;
-  final Offset center;
   final Offset imageOffset;
-  final List<ButtonData> buttons;
   final double touchRadius;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(postOverlayStateNotifierProvider);
+
     return Stack(
       children: [
         Container(color: Colors.black.withAlpha((255 * 0.7).floor())),
@@ -32,13 +30,10 @@ class PostOverlay extends StatelessWidget {
           left: imageOffset.dx,
           child: SizedBox(width: size.width, child: image),
         ),
-        ArcMenu(
-          buttons: buttons,
-          options: ArcMenuOptions(center: center),
-        ),
+        ArcMenu(),
         Positioned(
-          left: center.dx - touchRadius,
-          top: center.dy - touchRadius,
+          left: state.menuState.options.center.dx - touchRadius,
+          top: state.menuState.options.center.dy - touchRadius,
           child: Container(
             width: touchRadius * 2,
             height: touchRadius * 2,

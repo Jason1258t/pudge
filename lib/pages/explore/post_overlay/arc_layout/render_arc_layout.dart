@@ -39,7 +39,6 @@ class RenderArcLayout extends RenderBox
     }
   }
 
-
   @override
   void performLayout() {
     size = constraints.biggest;
@@ -55,13 +54,17 @@ class RenderArcLayout extends RenderBox
       // Lay out the child with unbounded constraints
       child.layout(constraints.loosen(), parentUsesSize: true);
 
-      final childSize = child.size;
+      final buttonCenter = getButtonPosition(
+        index: index,
+        startAngle: _startAngle,
+        center: _center,
+        radius: _radius,
+        spacing: _itemSpacing,
+        direction: _direction,
+      );
 
-      final angle = _startAngle + _itemSpacing * index * _direction.toInt();
-      final dx = _center.dx + _radius * math.cos(angle) - childSize.width / 2;
-      final dy = _center.dy + _radius * math.sin(angle) - childSize.height / 2;
-
-      childParentData.offset = Offset(dx, dy);
+      childParentData.offset =
+          buttonCenter - Offset(child.size.width / 2, child.size.height / 2);
 
       child = childParentData.nextSibling;
       index++;
