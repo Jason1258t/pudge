@@ -5,6 +5,8 @@ import 'package:pudge/features/studio/data/studio_api.dart';
 import 'package:pudge/features/studio/domain/studio_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+part 'studio_repository_impl.g.dart';
+
 @riverpod
 StudioRepository studioRepository(Ref ref) {
   return StudioRepositoryImpl(ref.watch(apiServiceProvider).getService());
